@@ -5,6 +5,7 @@ export const initialSelected = { id: 0, name: "все" }
 
 const initialState = {
     selected: initialSelected,
+    currentWort: null,
     group: [],
     wort: [],
 }
@@ -14,7 +15,13 @@ export const mainReducer = createSlice({
     name: 'main',
     reducers: {
         setWort: (state, action) => {
-            state.wort = action.payload.wort
+            const w = action.payload?.wort || state.wort
+            const i = Math.floor(Math.random() * w.length)
+            return {
+                ...state,
+                currentWort: w[i],
+                wort: w,
+            }
         },
         setGroup: (state, action) => {
             state.group = action.payload.group
