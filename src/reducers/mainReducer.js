@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 
+export const initialWort = { id: 0, wort: "", translate: "", group: 0 }
 export const initialSelected = { id: 0, name: "все" }
 
 const initialState = {
+    currentWort: initialWort,
     selected: initialSelected,
-    currentWort: null,
     loading: true,
     group: [],
     wort: [],
