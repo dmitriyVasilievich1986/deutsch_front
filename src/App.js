@@ -4,6 +4,8 @@ import React from 'react'
 
 
 function App() {
+    document.title = process.env?.REACT_APP_NAME || "document"
+
     return (
         <div>
             <BrowserRouter>
