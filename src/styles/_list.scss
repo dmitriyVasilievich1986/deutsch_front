@@ -1,13 +1,16 @@
+@import 'variables';
+
 .list_wrapper {
-    width: max-content;
-    max-width: 150px;
+    max-width: 250px;
+    width: 80%;
 
     div {
         padding: 10px 1rem;
         cursor: pointer;
 
         &.active {
-            background-color: green;
+            background-color: $blue;
+            color: $white;
         }
     }
 }
