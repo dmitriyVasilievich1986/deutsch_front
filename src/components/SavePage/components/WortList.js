@@ -37,24 +37,26 @@ function WortList() {
 
     if (wort.length === 0 || currentWort === null) return null
     return (
-        <div className={className('wort_list', 'm2')}>
+        <div className={className('m2')}>
             <div className={className('input_row', 'mb2')}>
                 <img src="/static/i/search.png" className='search_icon' />
                 <input type="text" value={search} onChange={e => setSearch(e.target.value)} className="search" />
                 <img src="/static/i/eraser.png" onClick={_ => setSearch("")} className="icon" />
             </div>
-            <div>
-                {searchList().map(w => (
-                    <div className={className("input_row")} key={w.id}>
-                        <div
-                            className={className("wort", { active: w.id == currentWort.id })}
-                            onClick={_ => dispatch(setState({ currentWort: w }))}
-                        >
-                            {w.wort}<div className={className("ml2", "mr2")}>/</div>{w.translate}
+            <div className={className('wort_list')}>
+                <div>
+                    {searchList().map(w => (
+                        <div className={className("input_row")} key={w.id}>
+                            <div
+                                className={className("wort", { active: w.id == currentWort.id })}
+                                onClick={_ => dispatch(setState({ currentWort: w }))}
+                            >
+                                {w.wort}<div className={className("ml2", "mr2")}>/</div>{w.translate}
+                            </div>
+                            <img src="/static/i/bin.png" onClick={_ => deleteHandler(w.id)} className="icon" />
                         </div>
-                        <img src="/static/i/bin.png" onClick={_ => deleteHandler(w.id)} className="icon" />
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
         </div>
     )
