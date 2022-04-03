@@ -1,0 +1,21 @@
+@import 'variables';
+
+.wort_list {
+    max-height: 500px;
+    overflow-y: auto;
+    min-width: 250px;
+    max-width: 400px;
+    border: none;
+}
+
+.wort {
+    padding: 10px 1rem;
+    cursor: pointer;
+    display: flex;
+    width: 100%;
+
+    &.active {
+        background-color: $blue;
+        color: $white;
+    }
+}
