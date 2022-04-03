@@ -1,8 +1,5 @@
-import MainWortPage from './components/mainWortPage/MainWortPage'
+import { MainWortPage, Error404, SavePage, Navbar } from './components'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import SavePage from './components/SavePage/SavePage'
-import Error404 from './components/Error404'
-import Navbar from './components/Navbar'
 import React from 'react'
 
 
