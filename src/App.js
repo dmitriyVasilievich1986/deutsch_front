@@ -1,8 +1,8 @@
 import MainWortPage from './components/mainWortPage/MainWortPage'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import * as ReactDOMClient from 'react-dom/client'
-import { Provider } from 'react-redux'
-import store from './store'
+import SavePage from './components/SavePage/SavePage'
+import Error404 from './components/Error404'
+import Navbar from './components/Navbar'
 import React from 'react'
 
 
@@ -10,13 +10,15 @@ function App() {
     return (
         <div>
             <BrowserRouter>
+                <Navbar />
                 <Routes>
-                    <Route path="/" element={<MainWortPage />} />
+                    <Route exact path="/" element={<MainWortPage />} />
+                    <Route path="/save" element={<SavePage />} />
+                    <Route path="*" element={<Error404 />} />
                 </Routes>
             </BrowserRouter>
         </div>
     )
 }
 
-ReactDOMClient.createRoot(document.getElementById('app'))
-    .render(<Provider store={store}><App /></Provider>)
+export default App
