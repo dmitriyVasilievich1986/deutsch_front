@@ -1,5 +1,6 @@
 import { MainWortPage, Error404, SavePage, Navbar, GroupPage } from './components'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import className from 'classnames'
 import React from 'react'
 
 
@@ -17,6 +18,7 @@ function App() {
                     <Route path="*" element={<Error404 />} />
                 </Routes>
             </BrowserRouter>
+            <div className={className("empty_block")} />
         </div>
     )
 }
