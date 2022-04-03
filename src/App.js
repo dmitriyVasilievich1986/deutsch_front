@@ -1,4 +1,4 @@
-import { MainWortPage, Error404, SavePage, Navbar } from './components'
+import { MainWortPage, Error404, SavePage, Navbar, GroupPage } from './components'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import React from 'react'
 
@@ -12,6 +12,7 @@ function App() {
                 <Navbar />
                 <Routes>
                     <Route exact path="/" element={<MainWortPage />} />
+                    <Route path="/group" element={<GroupPage />} />
                     <Route path="/save" element={<SavePage />} />
                     <Route path="*" element={<Error404 />} />
                 </Routes>

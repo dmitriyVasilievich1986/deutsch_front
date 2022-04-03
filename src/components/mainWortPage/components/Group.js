@@ -1,5 +1,6 @@
 import { setSelected, initialSelected, setWort } from '../../../reducers/mainReducer'
 import { useSelector, useDispatch } from 'react-redux'
+import className from 'classnames'
 import React from 'react'
 import axios from 'axios'
 
@@ -31,18 +32,16 @@ function Group() {
         <div>
             <p>Группы слов:</p>
             <div className='list_wrapper m2'>
-                {groupList.map((g, i) => {
-                    const a = g.id == selected.id ? "active" : ""
-                    return (
-                        <div
-                            onClick={_ => dispatch(setSelected({ selected: g }))}
-                            className={a}
-                            key={i}
-                        >
-                            {g.name}
-                        </div>
-                    )
-                })}
+                {groupList.map((g, i) => (
+                    <div
+                        className={className("wort", { active: g.id == selected.id })}
+                        onClick={_ => dispatch(setSelected({ selected: g }))}
+                        key={i}
+                    >
+                        {g.name}
+                    </div>
+                )
+                )}
             </div>
             {wortCount()}
         </div>
