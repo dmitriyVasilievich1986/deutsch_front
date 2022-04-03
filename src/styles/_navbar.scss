@@ -1,0 +1,36 @@
+@import 'variables';
+
+.navbar {
+    background-color: #14213d;
+    min-height: 4rem;
+    flex-wrap: wrap;
+    color: $white;
+    @include row;
+    width: 100%;
+}
+
+.navbar_main {
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0 3rem;
+    @include row;
+}
+
+.navbar_link {
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    color: $white;
+
+    &:hover {
+        color: $yelow;
+    }
+
+    &.active {
+        text-decoration: 3px underline $white;
+
+        &:hover {
+            text-decoration-color: $yelow;
+        }
+    }
+}

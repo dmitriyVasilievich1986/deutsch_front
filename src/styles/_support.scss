@@ -1,0 +1,81 @@
+@import 'variables';
+
+.m1 {
+    margin: $sm_margin;
+}
+
+.mt1 {
+    margin-top: $sm_margin;
+}
+
+.mr1 {
+    margin-right: $sm_margin;
+}
+
+.mb1 {
+    margin-bottom: $sm_margin;
+}
+
+.ml1 {
+    margin-left: $sm_margin;
+}
+
+.m2 {
+    margin: $md_margin;
+}
+
+.mt2 {
+    margin-top: $md_margin;
+}
+
+.mr2 {
+    margin-right: $md_margin;
+}
+
+.mb2 {
+    margin-bottom: $md_margin;
+}
+
+.ml2 {
+    margin-left: $md_margin;
+}
+
+.p1 {
+    padding: $sm_margin;
+}
+
+.pt1 {
+    padding-top: $sm_margin;
+}
+
+.pr1 {
+    padding-right: $sm_margin;
+}
+
+.pb1 {
+    padding-bottom: $sm_margin;
+}
+
+.pl1 {
+    padding-left: $sm_margin;
+}
+
+.p2 {
+    padding: $md_margin;
+}
+
+.pt2 {
+    padding-top: $md_margin;
+}
+
+.pr2 {
+    padding-right: $md_margin;
+}
+
+.pb2 {
+    padding-bottom: $md_margin;
+}
+
+.pl2 {
+    padding-left: $md_margin;
+}

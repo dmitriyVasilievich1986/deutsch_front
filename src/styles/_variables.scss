@@ -1,0 +1,25 @@
+@mixin l_container {
+    max-width: 700px;
+    width: 100%;
+}
+
+@mixin m_container {
+    max-width: 500px;
+    width: 100%;
+}
+
+@mixin row {
+    align-items: center;
+    display: flex;
+}
+
+$white: #f8edeb;
+$yelow: #fca311;
+
+$b_conatiner: 700px;
+$m_conatiner: 500px;
+$s_conatiner: 300px;
+
+$sm_margin: 5px;
+$md_margin: 10px;
+$lg_margin: 15px;
