@@ -1,5 +1,5 @@
-import { useSelector, useDispatch } from 'react-redux'
 import { setState } from '../../../reducers/mainReducer'
+import { useSelector, useDispatch } from 'react-redux'
 import className from 'classnames'
 import axios from 'axios'
 import React from 'react'

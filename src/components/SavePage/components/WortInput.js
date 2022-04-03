@@ -1,8 +1,9 @@
-import { setState, initialWort } from '../../../reducers/mainReducer'
+import { setState } from '../../../reducers/mainReducer'
 import { useSelector, useDispatch } from 'react-redux'
-import React from 'react'
 import className from 'classnames'
+import React from 'react'
 import axios from 'axios'
+
 
 function WortInput(props) {
     const group = useSelector(state => state.main.group)

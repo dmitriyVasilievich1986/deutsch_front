@@ -1,10 +1,9 @@
-import InputWort from '../../groupPage/components/InputWort'
 import { setState, initialWort } from '../../../reducers/mainReducer'
 import { useSelector, useDispatch } from 'react-redux'
 import className from 'classnames'
-import WortInput from './WortInput'
 import React from 'react'
 import axios from 'axios'
+
 
 function WortList() {
     const currentWort = useSelector(state => state.main.currentWort)

@@ -1,10 +1,10 @@
 import { setState, initialWort } from '../../reducers/mainReducer'
 import { WortList, WortDescription } from './components'
 import { useSelector, useDispatch } from 'react-redux'
+import WortInput from './components/WortInput'
 import className from 'classnames'
 import axios from 'axios'
 import React from 'react'
-import WortInput from './components/WortInput'
 
 function SavePage() {
     const loading = useSelector(state => state.main.loading)
