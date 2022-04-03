@@ -20,7 +20,7 @@ export const mainReducer = createSlice({
             const i = Math.floor(Math.random() * w.length)
             return {
                 ...state,
-                currentWort: w[i],
+                currentWort: w?.[i] || null,
                 wort: w,
             }
         },
