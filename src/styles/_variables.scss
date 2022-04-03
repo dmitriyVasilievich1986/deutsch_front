@@ -8,6 +8,11 @@
     width: 100%;
 }
 
+@mixin m_container {
+    max-width: 300px;
+    width: 100%;
+}
+
 @mixin row {
     align-items: center;
     display: flex;
