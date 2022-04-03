@@ -1,15 +1,15 @@
 {
-  "name": "front",
+  "name": "deutsch",
   "version": "1.0.0",
-  "description": "",
+  "description": "react front for <<Deutsch Sprache Lerner>>",
   "main": "index.js",
   "scripts": {
     "dev": "rimraf ./static/js && webpack --watch --mode development",
     "build": "rimraf ./static/js && webpack --mode production"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "dmitriyvasil@gmail.com",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.17.8",
     "@babel/preset-env": "^7.16.11",
