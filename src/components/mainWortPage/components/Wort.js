@@ -26,16 +26,14 @@ function Wort() {
         return null
     }
     return (
-        <div>
-            <div style={{ display: "flex", marginTop: "1rem", justifyContent: "center", alignItems: "center" }}>
+        <div className='wort_wrapper'>
+            <div className='wort_row'>
                 <CopyClipboard wort={currentWort.wort} />
                 {showWort()}
                 <img
-                    style={{ cursor: "pointer", margin: "0 1rem" }}
                     onClick={_ => setReverse(!reverse)}
                     src='/static/i/reverse.png'
-                    height="30px"
-                    width="30px"
+                    className='reverse_image'
                 />
                 <HidenWort wort={reverse ? currentWort.wort : currentWort.translate} />
             </div>
