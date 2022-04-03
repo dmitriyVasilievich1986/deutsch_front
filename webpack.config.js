@@ -1,3 +1,4 @@
+const Dotenv = require('dotenv-webpack');
 const path = require('path');
 
 module.exports = {
@@ -7,6 +8,9 @@ module.exports = {
     output: {
         path: path.resolve('./static/js'),
     },
+    plugins: [
+        new Dotenv()
+    ],
     module: {
         rules: [
             {
