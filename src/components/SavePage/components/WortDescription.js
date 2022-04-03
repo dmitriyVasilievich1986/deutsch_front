@@ -42,7 +42,6 @@ function WortDescription() {
             translate: translate,
             wort: deutschWort,
             group: groupID,
-            theme: null,
         }
         axios.post(`/api/wort/`, newWort)
             .then(data => {
