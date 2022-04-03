@@ -4,8 +4,8 @@
   "description": "react front for <<Deutsch Sprache Lerner>>",
   "main": "index.js",
   "scripts": {
-    "dev": "rimraf ./static/js && webpack --watch --mode development",
-    "build": "rimraf ./static/js && webpack --mode production"
+    "dev": "rimraf ./static/js/* && webpack --watch --mode development",
+    "build": "rimraf ./static/js/* && webpack --mode production"
   },
   "keywords": [],
   "author": "dmitriyvasil@gmail.com",
