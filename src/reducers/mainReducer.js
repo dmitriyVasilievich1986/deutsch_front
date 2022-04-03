@@ -6,6 +6,7 @@ export const initialSelected = { id: 0, name: "все" }
 const initialState = {
     selected: initialSelected,
     currentWort: null,
+    loading: true,
     group: [],
     wort: [],
 }
@@ -23,6 +24,12 @@ export const mainReducer = createSlice({
                 wort: w,
             }
         },
+        setState: (state, action) => {
+            return {
+                ...state,
+                ...action.payload,
+            }
+        },
         setGroup: (state, action) => {
             state.group = action.payload.group
         },
@@ -32,7 +39,7 @@ export const mainReducer = createSlice({
     },
 })
 
-export const { setGroup, setSelected, setWort } = mainReducer.actions
+export const { setGroup, setSelected, setWort, setState } = mainReducer.actions
 
 
 export default mainReducer.reducer
