@@ -1,0 +1,29 @@
+@import 'variables';
+
+.input,
+.search {
+    padding: 5px 10px;
+    font-size: 14px;
+
+    border-bottom: 1px solid #e5e5e5;
+    border-right: none;
+    border-left: none;
+    border-top: none;
+
+    &:focus {
+        border-bottom: 2px solid #495057;
+        outline: none;
+    }
+
+    &:disabled {
+        border: none;
+    }
+}
+
+.input_row {
+    @include row;
+
+    .input {
+        width: 40%;
+    }
+}
