@@ -1,0 +1,44 @@
+@import 'variables';
+
+.wort_page_wrapper {
+    flex-wrap: wrap;
+    display: flex;
+}
+
+.group_container {
+    padding-left: 10px;
+    flex: 5 200px;
+}
+
+@media (max-width: 699px) {
+    .group_container {
+        justify-content: center;
+        display: flex;
+    }
+}
+
+.wort_wrapper {
+    margin-top: 3rem;
+}
+
+.wort_row {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.copy_clipboard_image,
+.reverse_image {
+    cursor: pointer;
+    margin: 0 1rem;
+}
+
+.reverse_image {
+    height: 30px;
+    width: 30px;
+}
+
+.copy_clipboard_image {
+    height: 15px;
+    width: 15px;
+}
