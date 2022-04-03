@@ -1,0 +1,27 @@
+@import 'variables';
+
+.description_field {
+    align-items: center;
+    margin: 10px 0;
+    display: flex;
+    width: 100%;
+
+    div {
+        width: 30%;
+    }
+}
+
+.wort_group {
+    padding: 10px 1rem;
+    cursor: pointer;
+    width: 80%;
+
+    &.active:not(.selected) {
+        background-color: $blue;
+        color: $white;
+    }
+
+    &.selected {
+        background-color: $yelow;
+    }
+}
