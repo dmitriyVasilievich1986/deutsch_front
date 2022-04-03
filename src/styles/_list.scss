@@ -1,0 +1,13 @@
+.list_wrapper {
+    width: max-content;
+    max-width: 150px;
+
+    div {
+        padding: 10px 1rem;
+        cursor: pointer;
+
+        &.active {
+            background-color: green;
+        }
+    }
+}
