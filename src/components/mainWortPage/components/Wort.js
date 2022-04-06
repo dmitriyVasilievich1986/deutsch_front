@@ -25,10 +25,9 @@ function Wort(props) {
 
     React.useEffect(_ => {
         const themeList = wortTheme.filter(wt => props.themeList.includes(wt.theme)).map(t => t.wort)
-        const allWortTheme = wortTheme.map(wt => wt.wort)
         const wList = wort
             .filter(w => (
-                (themeList.includes(w.id) || !allWortTheme.includes(w.id)) &&
+                (themeList.includes(w.id) || themeList.length == 0) &&
                 (w.group == selected.id || selected.id == 0)
             ))
         setWortList(wList)
