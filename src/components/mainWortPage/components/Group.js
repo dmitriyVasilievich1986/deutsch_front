@@ -1,13 +1,11 @@
-import { setSelected, initialSelected, setWort } from '../../../reducers/mainReducer'
+import { setSelected, initialSelected } from '../../../reducers/mainReducer'
 import { useSelector, useDispatch } from 'react-redux'
 import className from 'classnames'
 import React from 'react'
-import axios from 'axios'
 
 function Group() {
     const selected = useSelector(state => state.main.selected)
     const group = useSelector(state => state.main.group)
-    const wort = useSelector(state => state.main.wort)
     const groupList = [initialSelected, ...group]
     const dispatch = useDispatch()
 
