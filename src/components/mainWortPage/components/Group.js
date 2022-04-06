@@ -11,23 +11,6 @@ function Group() {
     const groupList = [initialSelected, ...group]
     const dispatch = useDispatch()
 
-    React.useEffect(_ => {
-        const path = selected.id == 0 ? "/api/wort/" : `/api/group/${selected.id}/`
-        axios.get(path)
-            .then(data => {
-                const w = selected.id == 0 ? data.data : data.data.wort
-                dispatch(setWort({ wort: w }))
-            })
-            .catch(e => console.log(e))
-    }, [selected])
-
-    const wortCount = _ => {
-        if (wort.length) {
-            return `Количество слов: ${wort.length}`
-        }
-        return null
-    }
-
     return (
         <div className='m2'>
             <p>Groups:</p>
@@ -43,7 +26,6 @@ function Group() {
                 )
                 )}
             </div>
-            {/* {wortCount()} */}
         </div>
     )
 }
