@@ -7,6 +7,7 @@ import axios from 'axios'
 
 function WortList() {
     const currentWort = useSelector(state => state.main.currentWort)
+    const wortTheme = useSelector(state => state.main.wortTheme)
     const wort = useSelector(state => state.main.wort)
     const [search, setSearch] = React.useState("")
     const dispatch = useDispatch()
@@ -27,7 +28,13 @@ function WortList() {
             .then(_ => {
                 const w = wort.filter(w => w.id != id)
                 const c = w?.[0] || initialWort
-                dispatch(setState({ wort: w, currentWort: c, loading: false }))
+                const wtList = wortTheme.filter(wt => wt.wort != id)
+                dispatch(setState({
+                    wortTheme: wtList,
+                    currentWort: c,
+                    loading: false,
+                    wort: w,
+                }))
             })
             .catch(e => {
                 console.log(e)
