@@ -9,6 +9,7 @@ const initialState = {
     selected: initialSelected,
     loading: true,
     group: [],
+    theme: [],
     wort: [],
 }
 

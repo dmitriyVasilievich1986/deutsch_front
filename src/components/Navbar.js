@@ -5,7 +5,8 @@ function Navbar(props) {
     const routes = [
         { path: "/", name: "Main" },
         { path: "/group/", name: "Groups" },
-        { path: "/save/", name: "Save" },
+        { path: "/theme/", name: "Themes" },
+        { path: "/save/", name: "Words" },
     ]
 
     const path = useLocation()
