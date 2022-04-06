@@ -10,7 +10,14 @@ function WortList() {
     const wortTheme = useSelector(state => state.main.wortTheme)
     const wort = useSelector(state => state.main.wort)
     const [search, setSearch] = React.useState("")
+    const listRef = React.useRef(null)
     const dispatch = useDispatch()
+
+    React.useEffect(_ => {
+        if (listRef.current) {
+            listRef.current.getElementsByClassName("active")?.[0]?.scrollIntoView({ behavior: "smooth" })
+        }
+    }, [listRef])
 
     const searchList = _ => {
         if (search == "" || search == " ") return wort
@@ -51,7 +58,7 @@ function WortList() {
                 <img src="/static/i/eraser.png" onClick={_ => setSearch("")} className="icon" />
             </div>
             <div className={className('wort_list')}>
-                <div>
+                <div ref={listRef}>
                     {searchList().map(w => (
                         <div className={className("input_row")} key={w.id}>
                             <div
