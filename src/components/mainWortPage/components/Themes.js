@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import className from 'classnames'
 import React from 'react'
 
@@ -14,10 +14,23 @@ function Themes(props) {
         }
     }
 
+    const AllNone = _ => {
+        const active = themeList.length === theme.length
+        return (
+            <div
+                className={className("wort", { active })}
+                onClick={_ => setThemeList(active ? [] : theme.map(t => t.id))}
+            >
+                all/none
+            </div>
+        )
+    }
+
     return (
         <div className='m2'>
             <p>Themes:</p>
             <div className='list_wrapper m2'>
+                <AllNone />
                 {theme.map(t => {
                     const active = themeList.includes(t.id)
                     return (
