@@ -1,6 +1,7 @@
 import React from 'react'
 
 function CopyClipboard(props) {
+    if (document.location.protocol == "http:") return null
     return (
         <img
             onClick={_ => navigator.clipboard.writeText(props.wort)}
