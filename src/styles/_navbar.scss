@@ -16,11 +16,19 @@
     @include row;
 }
 
+.main_link {
+    color: $blue;
+}
+
+.navbar_link {
+    color: $white;
+}
+
+.main_link,
 .navbar_link {
     text-decoration: none;
     font-weight: bold;
     cursor: pointer;
-    color: $white;
 
     &:hover {
         color: $yelow;

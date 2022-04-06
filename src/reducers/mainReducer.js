@@ -8,6 +8,7 @@ const initialState = {
     currentWort: initialWort,
     selected: initialSelected,
     loading: true,
+    wortTheme: [],
     group: [],
     theme: [],
     wort: [],

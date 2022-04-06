@@ -29,8 +29,8 @@ function Group() {
     }
 
     return (
-        <div>
-            <p>Группы слов:</p>
+        <div className='m2'>
+            <p>Groups:</p>
             <div className='list_wrapper m2'>
                 {groupList.map((g, i) => (
                     <div
@@ -43,7 +43,7 @@ function Group() {
                 )
                 )}
             </div>
-            {wortCount()}
+            {/* {wortCount()} */}
         </div>
     )
 }

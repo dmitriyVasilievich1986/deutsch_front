@@ -10,7 +10,7 @@ function WortInput(props) {
     const wort = useSelector(state => state.main.wort)
     const dispatch = useDispatch()
 
-    const [newGroup, setNewGroup] = React.useState(group?.[0].id || 0)
+    const [newGroup, setNewGroup] = React.useState(group?.[0]?.id || 0)
     const [newTranslate, setNewTranslate] = React.useState("")
     const [newWort, setNewWort] = React.useState("")
 
@@ -40,7 +40,7 @@ function WortInput(props) {
         console.log(e)
     }
 
-    if (group.length == 0) return null
+
     return (
         <div className={className("m2")}>
             New word:
