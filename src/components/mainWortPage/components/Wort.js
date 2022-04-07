@@ -17,7 +17,7 @@ function Wort(props) {
 
     const randWort = _ => {
         const i = Math.floor(Math.random() * wortList.length)
-        dispatch(setState({ currentWort: wortList[i] }))
+        dispatch(setState({ currentWort: wortList?.[i] || null }))
     }
 
     React.useEffect(_ => {
@@ -47,8 +47,7 @@ function Wort(props) {
         )
     }
 
-    if (currentWort === null) return null
-    else if (wortList.length === 0) return <h1 className='wort_row'>List is empty</h1>
+    if (currentWort === null || wortList.length === 0) return <h1 className='wort_row'>List is empty</h1>
     return (
         <div className='wort_wrapper'>
             <div className={className('m2', "tooltip")}>
