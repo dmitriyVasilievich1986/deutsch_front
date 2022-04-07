@@ -1,0 +1,27 @@
+@import "variables";
+
+.tooltip {
+    display: inline-block;
+    position: relative;
+    cursor: help;
+
+    .tooltip_text {
+        border: 1px solid $black;
+        background-color: $black;
+        visibility: hidden;
+        border-radius: 3px;
+        position: absolute;
+        width: max-content;
+        max-height: 250px;
+        overflow: auto;
+        color: $white;
+        padding: 5px;
+        left: -70px;
+        z-index: 1;
+        top: -6px;
+    }
+
+    &:hover .tooltip_text {
+        visibility: visible;
+    }
+}

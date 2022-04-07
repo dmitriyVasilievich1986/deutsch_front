@@ -2,6 +2,7 @@ import { setState } from '../../../reducers/mainReducer'
 import { useSelector, useDispatch } from 'react-redux'
 import CopyClipboard from './CopyClipboard'
 import HidenWort from './HidenWort'
+import className from 'classnames'
 import React from 'react'
 
 function Wort(props) {
@@ -50,8 +51,13 @@ function Wort(props) {
     else if (wortList.length === 0) return <h1 className='wort_row'>List is empty</h1>
     return (
         <div className='wort_wrapper'>
-            <div className='m2'>
+            <div className={className('m2', "tooltip")}>
                 Количество слов: {wortList.length}
+                <span className={className("tooltip_text")}>
+                    {wortList.map(w => (
+                        <div key={w.id} className={className("row")}>{w.wort} / {w.translate}</div>
+                    ))}
+                </span>
             </div>
             <div className='wort_row'>
                 <CopyClipboard wort={currentWort.wort} />
