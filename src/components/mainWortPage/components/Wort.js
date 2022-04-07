@@ -17,7 +17,7 @@ function Wort(props) {
 
     const randWort = _ => {
         const i = Math.floor(Math.random() * wortList.length)
-        dispatch(setState({ currentWort: wort[i] }))
+        dispatch(setState({ currentWort: wortList[i] }))
     }
 
     React.useEffect(_ => {
