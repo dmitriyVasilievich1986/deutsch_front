@@ -11,7 +11,7 @@ function MainWortPage() {
     const [themeList, setThemeList] = React.useState([])
 
     React.useEffect(_ => {
-        setThemeList(theme.map(t => t.id))
+        setThemeList([])
     }, [theme])
 
     if (loading) return <h1>Loading...</h1>
