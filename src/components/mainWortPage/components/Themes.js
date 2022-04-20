@@ -27,9 +27,9 @@ function Themes(props) {
     }
 
     return (
-        <div className='m2'>
+        <div className={className('m2')}>
             <p>Themes:</p>
-            <div className='list_wrapper m2'>
+            <div className={className('list_wrapper', 'long_list', 'm2')}>
                 <AllNone />
                 {theme.map(t => {
                     const active = themeList.includes(t.id)

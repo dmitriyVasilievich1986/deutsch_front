@@ -10,9 +10,9 @@ function Group() {
     const dispatch = useDispatch()
 
     return (
-        <div className='m2'>
+        <div className={className('m2')}>
             <p>Groups:</p>
-            <div className='list_wrapper m2'>
+            <div className={className('list_wrapper', 'long_list', 'm2')}>
                 {groupList.map((g, i) => (
                     <div
                         className={className("wort", { active: g.id == selected.id })}

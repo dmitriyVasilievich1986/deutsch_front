@@ -1,11 +1,36 @@
 @import 'variables';
 
 .wort_list {
-    max-height: 500px;
     overflow-y: auto;
-    min-width: 250px;
-    max-width: 400px;
+    height: 400px;
     border: none;
+}
+
+.wort_list_wrapper {
+    justify-content: center;
+    display: flex;
+
+    .wort_list_inner {
+        min-width: 250px;
+        width: 90%;
+    }
+}
+
+.short_list,
+.long_list {
+    height: fit-content;
+    overflow-x: hidden;
+    min-height: 150px;
+    overflow-y: auto;
+    margin: 1rem 0;
+}
+
+.long_list {
+    max-height: 400px;
+}
+
+.short_list {
+    max-height: 200px;
 }
 
 .wort {

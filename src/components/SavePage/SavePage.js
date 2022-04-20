@@ -26,7 +26,6 @@ function SavePage() {
             </div>
             <div className='m_container'>
                 <WortList />
-                <div className={className("empty_block")} />
                 <WortInput />
             </div>
             <div className='s_container'>

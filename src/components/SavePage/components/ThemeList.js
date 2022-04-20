@@ -43,7 +43,7 @@ function ThemeList() {
     return (
         <div className={className("m2")}>
             Themes:
-            <div>
+            <div className={className("long_list")}>
                 {theme.map(t => {
                     const wt = wortTheme.filter(wt => wt.wort == currentWort.id && wt.theme == t.id)
                     return (

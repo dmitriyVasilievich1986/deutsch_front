@@ -60,7 +60,7 @@ function WortDescription() {
                     <div><input className={className("input")} type="text" value={translate} onChange={e => setTranslate(e.target.value)} /></div>
                 </div>
             </div>
-            <div className={className("mt2", "mb2")}>
+            <div className={className("long_list")}>
                 {group.map(g => (
                     <div
                         className={className("wort_group", {

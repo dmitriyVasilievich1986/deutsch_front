@@ -42,40 +42,42 @@ function WortInput(props) {
 
 
     return (
-        <div className={className("m2")}>
-            New word:
-            <div className={className("input_row")}>
-                <input
-                    onChange={e => setNewWort(e.target.value)}
-                    className={className("input")}
-                    placeholder="word"
-                    value={newWort}
-                    type="text"
-                />
-                <div className={className("ml1", "mr2")}>/</div>
-                <input
-                    onChange={e => setNewTranslate(e.target.value)}
-                    className={className("input")}
-                    placeholder="translate"
-                    value={newTranslate}
-                    type="text"
-                />
-                <img src="/static/i/eraser.png" onClick={eraserHandler} className="icon" />
-                <img src="/static/i/save.png" onClick={saveHandler} className="icon" />
-            </div>
-            <div className={className("mt2", "mb2")}>
-                {group.map(g => (
-                    <div
-                        className={className("wort_group", {
-                            selected: g.id == newGroup,
-                        })}
-                        onClick={_ => setNewGroup(g.id)}
-                        key={g.id}
-                    >
-                        {g.name}
-                    </div>
-                )
-                )}
+        <div className={className('wort_list_wrapper')} style={{ marginTop: "4rem" }}>
+            <div className={className("wort_list_inner")}>
+                New word:
+                <div className={className("input_row")}>
+                    <input
+                        onChange={e => setNewWort(e.target.value)}
+                        className={className("input")}
+                        placeholder="word"
+                        value={newWort}
+                        type="text"
+                    />
+                    <div className={className("ml1", "mr2")}>/</div>
+                    <input
+                        onChange={e => setNewTranslate(e.target.value)}
+                        className={className("input")}
+                        placeholder="translate"
+                        value={newTranslate}
+                        type="text"
+                    />
+                    <img src="/static/i/eraser.png" onClick={eraserHandler} className="icon" />
+                    <img src="/static/i/save.png" onClick={saveHandler} className="icon" />
+                </div>
+                <div className={className("short_list")}>
+                    {group.map(g => (
+                        <div
+                            className={className("wort_group", {
+                                selected: g.id == newGroup,
+                            })}
+                            onClick={_ => setNewGroup(g.id)}
+                            key={g.id}
+                        >
+                            {g.name}
+                        </div>
+                    )
+                    )}
+                </div>
             </div>
         </div>
     )
