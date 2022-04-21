@@ -1,4 +1,4 @@
-import { setState } from '../../../reducers/mainReducer'
+import { setState, initialWort } from '../../../reducers/mainReducer'
 import { useSelector, useDispatch } from 'react-redux'
 import CopyClipboard from './CopyClipboard'
 import HidenWort from './HidenWort'
@@ -17,7 +17,7 @@ function Wort(props) {
 
     const randWort = _ => {
         const i = Math.floor(Math.random() * wortList.length)
-        dispatch(setState({ currentWort: wortList?.[i] || null }))
+        dispatch(setState({ currentWort: wortList?.[i] || initialWort }))
     }
 
     React.useEffect(_ => {

@@ -5,8 +5,8 @@ export const initialWort = { id: 0, wort: "", translate: "", group: 0 }
 export const initialSelected = { id: 0, name: "все" }
 
 const initialState = {
-    currentWort: initialWort,
     selected: initialSelected,
+    currentWort: initialWort,
     loading: true,
     wortTheme: [],
     group: [],
@@ -23,7 +23,7 @@ export const mainReducer = createSlice({
             const i = Math.floor(Math.random() * w.length)
             return {
                 ...state,
-                currentWort: w?.[i] || null,
+                currentWort: w?.[i] || initialWort,
                 wort: w,
             }
         },
