@@ -1,13 +1,63 @@
-import { WortList, WortDescription, ThemeList } from './components'
+import { WortList, WortDescription } from './components'
+import { useSelector, useDispatch } from 'react-redux'
+import { setState } from '../../reducers/mainReducer'
 import WortInput from './components/WortInput'
 import { NavLink } from "react-router-dom"
-import { useSelector } from 'react-redux'
 import className from 'classnames'
+import Themes from '../Themes'
+import axios from 'axios'
 import React from 'react'
 
 function SavePage() {
+    const currentWort = useSelector(state => state.main.currentWort)
+    const wortTheme = useSelector(state => state.main.wortTheme)
     const loading = useSelector(state => state.main.loading)
     const group = useSelector(state => state.main.group)
+    const dispatch = useDispatch()
+
+    const getThemes = _ => {
+        const newList = []
+        wortTheme.map(wt => {
+            if (wt.wort == currentWort.id) {
+                newList.push(wt.theme)
+            }
+        })
+        return newList
+    }
+
+    const clickHandler = (active, themeID) => {
+        if (active) {
+            const wtID = wortTheme.filter(wt => wt.wort == currentWort.id && wt.theme == themeID)[0]
+            deleteHandler(wtID.id)
+        } else {
+            postHandler(themeID)
+        }
+    }
+
+    const deleteHandler = wortThemeID => {
+        axios.delete(`/api/worttheme/${wortThemeID}/`)
+            .then(_ => {
+                const newList = wortTheme.filter(wt => wt.id != wortThemeID)
+                dispatch(setState({ wortTheme: newList }))
+            })
+            .catch(errorHandler)
+    }
+
+    const postHandler = themeID => {
+        const data = {
+            wort: currentWort.id,
+            theme: themeID,
+        }
+        axios.post("/api/worttheme/", data)
+            .then(data => {
+                dispatch(setState({ wortTheme: [data.data, ...wortTheme] }))
+            })
+            .catch(errorHandler)
+    }
+
+    const errorHandler = e => {
+        console.log(e)
+    }
 
     if (loading) return <h1>Loading...</h1>
     else if (group.length == 0) return (
@@ -29,7 +79,7 @@ function SavePage() {
                 <WortInput />
             </div>
             <div className='s_container'>
-                <ThemeList />
+                <Themes clickHandler={clickHandler} themes={getThemes()} />
             </div>
         </div>
     )

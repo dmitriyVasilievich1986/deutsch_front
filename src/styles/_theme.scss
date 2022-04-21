@@ -1,0 +1,27 @@
+@import 'variables';
+
+.theme_badge_list {
+    min-height: 2rem;
+    flex-flow: wrap;
+    display: flex;
+}
+
+.theme_badge {
+    background-color: $blue;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin: 5px 5px;
+    cursor: pointer;
+    color: $white;
+}
+
+.splitter {
+    justify-content: center;
+    margin: 15px 0;
+    display: flex;
+
+    div {
+        border-bottom: 1px solid #caf0f8;
+        width: 80%;
+    }
+}

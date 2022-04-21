@@ -15,7 +15,6 @@ function WortInput(props) {
     const [newWort, setNewWort] = React.useState("")
 
     const saveHandler = _ => {
-        dispatch(setState({ loading: true }))
         const data = {
             translate: newTranslate,
             group: newGroup,
@@ -24,7 +23,7 @@ function WortInput(props) {
         axios.post(`/api/wort/`, data)
             .then(data => {
                 const w = data.data
-                dispatch(setState({ loading: false, wort: [w, ...wort], currentWort: w }))
+                dispatch(setState({ wort: [w, ...wort], currentWort: w }))
             })
             .catch(errorHandler)
     }
@@ -36,7 +35,6 @@ function WortInput(props) {
     }
 
     const errorHandler = e => {
-        dispatch(setState({ loading: false }))
         console.log(e)
     }
 

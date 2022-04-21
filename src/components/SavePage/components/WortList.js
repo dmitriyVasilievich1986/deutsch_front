@@ -9,6 +9,8 @@ function WortList() {
     const currentWort = useSelector(state => state.main.currentWort)
     const wortTheme = useSelector(state => state.main.wortTheme)
     const wort = useSelector(state => state.main.wort)
+
+    const [wortList, setWortList] = React.useState(wort)
     const [search, setSearch] = React.useState("")
     const listRef = React.useRef(null)
     const dispatch = useDispatch()
@@ -18,19 +20,23 @@ function WortList() {
             listRef.current.getElementsByClassName("active")?.[0]?.scrollIntoView({ behavior: "smooth" })
         }
     }, [listRef])
-
-    const searchList = _ => {
-        if (search == "" || search == " ") return wort
-        const l = wort.filter(w => w.wort.toLowerCase().includes(search.toLowerCase()))
-        const e = l.filter(l => l.id == currentWort.id)
-        if (e.length == 0 && l.length > 0) {
-            dispatch(setState({ currentWort: l[0] }))
+    React.useEffect(_ => {
+        const e = wortList.filter(l => l.id == currentWort.id)
+        if (e.length == 0 && wortList.length > 0) {
+            dispatch(setState({ currentWort: wortList[0] }))
         }
-        return l
-    }
+    }, [wortList])
+
+    React.useEffect(_ => {
+        if (search == "" || search == " ") {
+            setWortList(wort)
+        } else {
+            const l = wort.filter(w => w.wort.toLowerCase().includes(search.toLowerCase()))
+            setWortList(l)
+        }
+    }, [search])
 
     const deleteHandler = id => {
-        dispatch(setState({ loading: true }))
         axios.delete(`/api/wort/${id}/`)
             .then(_ => {
                 const w = wort.filter(w => w.id != id)
@@ -39,13 +45,11 @@ function WortList() {
                 dispatch(setState({
                     wortTheme: wtList,
                     currentWort: c,
-                    loading: false,
                     wort: w,
                 }))
             })
             .catch(e => {
                 console.log(e)
-                dispatch(setState({ loading: false }))
             })
     }
 
@@ -60,7 +64,7 @@ function WortList() {
                 </div>
                 <div className={className('wort_list')}>
                     <div ref={listRef}>
-                        {searchList().map(w => (
+                        {wortList.map(w => (
                             <div className={className("input_row")} key={w.id}>
                                 <div
                                     className={className("wort", { active: w.id == currentWort.id })}

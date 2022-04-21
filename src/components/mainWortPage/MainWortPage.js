@@ -1,6 +1,6 @@
 import { Wort, Group } from './components'
 import { useSelector } from 'react-redux'
-import Themes from './components/Themes'
+import Themes from '../Themes'
 import React from 'react'
 
 function MainWortPage() {
@@ -14,6 +14,14 @@ function MainWortPage() {
         setThemeList([])
     }, [theme])
 
+    const clickHandler = (active, themeID) => {
+        if (active) {
+            setThemeList(themeList.filter(t => t != themeID))
+        } else {
+            setThemeList([themeID, ...themeList])
+        }
+    }
+
     if (loading) return <h1>Loading...</h1>
     else if (wort.length === 0) return <h1 className='wort_row'>List is empty</h1>
     return (
@@ -25,7 +33,7 @@ function MainWortPage() {
                 <Wort themeList={themeList} />
             </div>
             <div className='s_container'>
-                <Themes themeList={[themeList, setThemeList]} />
+                <Themes clickHandler={clickHandler} />
             </div>
         </div>
     )
