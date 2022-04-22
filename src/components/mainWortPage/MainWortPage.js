@@ -36,8 +36,10 @@ function MainWortPage() {
     return (
         <div className='wort_page_wrapper'>
             <div className='group_container'>
-                <div style={{ display: "flex", alignItems: "center", margin: "2rem" }}>
-                    groups:
+                <div style={{ display: "flex", alignItems: "center", margin: "2rem", maxWidth: "300px" }}>
+                    <div style={{ marginRight: "5px" }}>
+                        groups:
+                    </div>
                     <Select
                         groupList={[initialSelected, ...group]}
                         changeHandler={changeHandler}
