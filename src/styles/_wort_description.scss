@@ -1,13 +1,14 @@
 @import 'variables';
 
 .description_field {
+    justify-content: space-between;
     align-items: center;
     margin: 10px 0;
     display: flex;
     width: 100%;
 
     &>div {
-        width: 30%;
+        width: 50%;
     }
 }
 
