@@ -2,12 +2,14 @@
 
 .group_list_wrapper {
     width: fit-content;
+    position: relative;
     margin: 10px;
 }
 
 .group_list {
     pointer-events: none;
-    position: relative;
+    position: absolute;
+    width: 100%;
     opacity: 0;
     top: 100%;
     left: 0;
