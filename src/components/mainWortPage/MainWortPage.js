@@ -36,7 +36,7 @@ function MainWortPage() {
     return (
         <div className='wort_page_wrapper'>
             <div className='group_container'>
-                <div style={{ display: "flex", alignItems: "baseline" }}>
+                <div style={{ display: "flex", alignItems: "center", margin: "2rem" }}>
                     groups:
                     <Select
                         groupList={[initialSelected, ...group]}
