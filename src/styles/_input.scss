@@ -1,9 +1,25 @@
 @import 'variables';
 
+.test_class {
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    display: flex;
+    height: 25px;
+    width: 25px;
+
+    &:active {
+        background-color: black;
+        transition: all 5s;
+    }
+
+}
+
 .input,
 .search {
-    padding: 5px 10px;
     font-size: 14px;
+    width: 100%;
 
     border-bottom: 1px solid #e5e5e5;
     border-right: none;

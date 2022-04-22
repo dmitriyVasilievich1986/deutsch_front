@@ -1,14 +1,18 @@
 @import 'variables';
 
 .group_list_wrapper {
-    width: fit-content;
     position: relative;
-    margin: 10px;
+    width: 100%;
 }
 
 .group_list {
+    transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+    transform: translateY(-10px);
+    border-radius: .25rem;
     pointer-events: none;
     position: absolute;
+    max-height: 350px;
+    overflow-y: auto;
     width: 100%;
     opacity: 0;
     top: 100%;
@@ -16,13 +20,16 @@
 
     &.show {
         box-shadow: 0 3px 10px 1px rgba(0, 0, 0, .1);
+        background-color: white;
+        transform: translateY(0);
         pointer-events: auto;
+        z-index: 9;
         opacity: 1;
     }
 }
 
 .group_item {
-    padding: 5px 1rem;
+    padding: .75rem;
     cursor: pointer;
 
     &:hover {

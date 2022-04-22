@@ -6,7 +6,7 @@
     display: flex;
     width: 100%;
 
-    div {
+    &>div {
         width: 30%;
     }
 }
