@@ -6,18 +6,27 @@ import axios from 'axios'
 import React from 'react'
 
 function Delete(props) {
+    const [animation, setAnimation] = React.useState(false)
     let timer = React.useRef(null)
 
-    const downHandler = _ => {
-        timer.current = setTimeout(_ => props.deleteHandler(), 2400)
+    const downHandler = e => {
+        setAnimation(true)
+        timer.current = setTimeout(_ => {
+            setAnimation(false)
+            props.deleteHandler()
+            timer.current = null
+        }, 2400)
     }
 
     const upHandler = _ => {
-        timer.current && clearTimeout(timer.current)
+        if (timer.current) {
+            clearTimeout(timer.current)
+            setAnimation(false)
+        }
     }
 
     return (
-        <div className={className("test_class")}>
+        <div className={className("test_class", { animation })}>
             <img
                 className={className("icon", "mt2")}
                 onMouseDown={downHandler}
@@ -72,10 +81,11 @@ function WortDescription() {
         const currentID = currentWort.id
         axios.delete(`/api/wort/${currentID}/`)
             .then(_ => {
+                const newWort = wort.filter(w => w.id != currentID)
                 dispatch(setState({
                     wortTheme: wortTheme.filter(wt => wt.wort != currentID),
-                    wort: wort.filter(w => w.id != currentID),
-                    currentWort: wort[0],
+                    currentWort: newWort[0],
+                    wort: newWort,
                 }))
             })
             .catch(e => {
@@ -86,7 +96,7 @@ function WortDescription() {
     if (currentWort.id == 0) return null
     return (
         <div className={className("m2")}>
-            <div>
+            <div style={{ maxWidth: "400px" }}>
                 <div className={className("description_field")}>
                     <div>ID:</div>
                     <div><input className={className("input")} type="text" value={currentWort.id} disabled /></div>
