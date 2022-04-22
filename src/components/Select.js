@@ -8,6 +8,10 @@ function Select(props) {
     const listRef = React.useRef(null)
 
     React.useEffect(_ => {
+        setValue(props.value.name)
+    }, [props.value])
+
+    React.useEffect(_ => {
         const clickPoutsideHandler = e => {
             if (listRef.current && !listRef.current.contains(e.target)) {
                 setShow(false)
