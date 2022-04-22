@@ -1,0 +1,29 @@
+@import 'variables';
+
+.group_list_wrapper {
+    width: fit-content;
+    margin: 10px;
+}
+
+.group_list {
+    pointer-events: none;
+    position: relative;
+    opacity: 0;
+    top: 100%;
+    left: 0;
+
+    &.show {
+        box-shadow: 0 3px 10px 1px rgba(0, 0, 0, .1);
+        pointer-events: auto;
+        opacity: 1;
+    }
+}
+
+.group_item {
+    padding: 5px 1rem;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $yelow;
+    }
+}
