@@ -1,28 +1,11 @@
-import { setSelected, initialSelected } from '../../../reducers/mainReducer'
-import { useSelector, useDispatch } from 'react-redux'
 import className from 'classnames'
 import React from 'react'
 
-function Group() {
-    const selected = useSelector(state => state.main.selected)
-    const group = useSelector(state => state.main.group)
-    const listRef = React.useRef(null)
-    const dispatch = useDispatch()
-
-    const [groupList, setGroupList] = React.useState([initialSelected, ...group])
-    const [value, setValue] = React.useState(selected.name)
+function Select(props) {
+    const [groupList, setGroupList] = React.useState(props.groupList)
+    const [value, setValue] = React.useState(props.value.name)
     const [show, setShow] = React.useState(false)
-
-    const onChangeHandler = e => {
-        const v = e.target.value
-        if (v == "") {
-            setGroupList([initialSelected, ...group])
-        } else {
-            const newList = group.filter(g => g.name.toLocaleLowerCase().includes(v))
-            setGroupList([initialSelected, ...newList])
-        }
-        setValue(v)
-    }
+    const listRef = React.useRef(null)
 
     React.useEffect(_ => {
         const clickPoutsideHandler = e => {
@@ -31,25 +14,35 @@ function Group() {
             }
         }
         document.addEventListener("mousedown", clickPoutsideHandler)
-
         return _ => { document.removeEventListener("mousedown", clickPoutsideHandler) }
     }, [listRef])
 
     React.useEffect(_ => {
+        let newValue = { name: "" }
         if (show) {
-            setValue("")
-            setGroupList([initialSelected, ...group])
-            setShow(true)
+            setGroupList(props.groupList)
         } else {
-            const newItem = group.filter(g => g.name.toLocaleLowerCase().includes(value))
+            const newItem = props.groupList.filter(g => g.name.toLocaleLowerCase().includes(value))
             if (newItem.length == 1) {
-                dispatch(setSelected({ selected: newItem[0] }))
-                setValue(newItem[0].name)
+                newValue = newItem[0]
+                props?.changeHandler && props.changeHandler(newValue)
             } else {
-                setValue(selected.name)
+                newValue = props.value
             }
         }
+        setValue(newValue.name)
     }, [show])
+
+    const onChangeHandler = e => {
+        const v = e.target.value
+        if (v == "") {
+            setGroupList(props.groupList)
+        } else {
+            const newList = props.groupList.filter(g => g.name.toLocaleLowerCase().includes(v))
+            setGroupList(newList)
+        }
+        setValue(v)
+    }
 
     return (
         <div className={className('group_list_wrapper')}>
@@ -66,7 +59,8 @@ function Group() {
                 {groupList.map(g => (
                     <div
                         onClick={_ => {
-                            dispatch(setSelected({ selected: g }))
+                            setValue(g.name)
+                            props?.changeHandler && props.changeHandler(g)
                             setShow(false)
                         }}
                         className={className("group_item")}
@@ -80,4 +74,4 @@ function Group() {
     )
 }
 
-export default Group
+export default Select
