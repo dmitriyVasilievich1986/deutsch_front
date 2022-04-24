@@ -1,11 +1,14 @@
+import { useSelector } from 'react-redux';
 import className from 'classnames';
 import React from 'react';
 
 function DeleteButton(props) {
+    const loading = useSelector(state => state.main.loading)
     const [animation, setAnimation] = React.useState(false)
     let timer = React.useRef(null)
 
     const downHandler = e => {
+        if (loading) return
         setAnimation(true)
         timer.current = setTimeout(_ => {
             setAnimation(false)
@@ -24,7 +27,7 @@ function DeleteButton(props) {
     return (
         <div className={className("test_class", { animation })}>
             <img
-                className={className("icon", "mt2")}
+                className={className("icon", "mt2", { loading })}
                 onMouseDown={downHandler}
                 src="/static/i/bin.png"
                 onMouseUp={upHandler}

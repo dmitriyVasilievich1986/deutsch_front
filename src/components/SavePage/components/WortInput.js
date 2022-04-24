@@ -1,12 +1,13 @@
-import { setState, setMessage } from '../../../reducers/mainReducer'
-import { useSelector, useDispatch } from 'react-redux'
-import className from 'classnames'
-import Select from '../../Select'
-import React from 'react'
-import axios from 'axios'
+import { setState, setMessage } from '../../../reducers/mainReducer';
+import { useSelector, useDispatch } from 'react-redux';
+import className from 'classnames';
+import Select from '../../Select';
+import React from 'react';
+import axios from 'axios';
 
 
 function WortInput(props) {
+    const loading = useSelector(state => state.main.loading)
     const group = useSelector(state => state.main.group)
     const wort = useSelector(state => state.main.wort)
     const dispatch = useDispatch()
@@ -17,6 +18,8 @@ function WortInput(props) {
     const [newWort, setNewWort] = React.useState("")
 
     const saveHandler = _ => {
+        if (loading) return
+        dispatch(setState({ loading: true }))
         const data = {
             description: newDescription,
             translate: newTranslate,
@@ -35,13 +38,18 @@ function WortInput(props) {
                 }))
             })
             .catch(e => {
-                dispatch(setMessage({ text: "Word was not created", action: "error" }))
+                dispatch(setState({
+                    message: { text: "Word was not created", action: "error" },
+                    loading: true,
+                }))
                 console.log(e)
             })
     }
 
     const eraserHandler = _ => {
+        if (loading) return
         setNewGroup(group[0])
+        setNewDescription("")
         setNewTranslate("")
         setNewWort("")
     }
@@ -53,11 +61,11 @@ function WortInput(props) {
             <div style={{ width: "100%" }}>
                 <div className={className("description_field")}>
                     <div>Word:</div>
-                    <div><input className={className("input")} placeholder="write the word" type="text" value={newWort} onChange={e => setNewWort(e.target.value)} /></div>
+                    <div><input disabled={loading} className={className("input")} placeholder="write the word" type="text" value={newWort} onChange={e => setNewWort(e.target.value)} /></div>
                 </div>
                 <div className={className("description_field")}>
                     <div>Translate:</div>
-                    <div><input className={className("input")} placeholder="write the translation" type="text" value={newTranslate} onChange={e => setNewTranslate(e.target.value)} /></div>
+                    <div><input disabled={loading} className={className("input")} placeholder="write the translation" type="text" value={newTranslate} onChange={e => setNewTranslate(e.target.value)} /></div>
                 </div>
                 <div className={className("description_field")}>
                     <div>Group:</div>
@@ -72,14 +80,14 @@ function WortInput(props) {
                 Description:
                 <textarea
                     onChange={e => setNewDescription(e.target.value)}
-                    style={{ width: "100%", resize: "none" }}
+                    style={{ width: "100%", resize: "none", borderRadius: "5px", padding: "5px" }}
                     placeholder="empty description"
                     value={newDescription}
-                    rows="3"
+                    rows="6"
                 />
                 <div style={{ display: "flex", marginTop: "1rem" }}>
-                    <img src="/static/i/eraser.png" onClick={eraserHandler} className="icon" />
-                    <img src="/static/i/save.png" onClick={saveHandler} className="icon" />
+                    <img src="/static/i/eraser.png" onClick={eraserHandler} className={className("icon", { loading })} />
+                    <img src="/static/i/save.png" onClick={saveHandler} className={className("icon", { loading })} />
                 </div>
             </div>
         </div>

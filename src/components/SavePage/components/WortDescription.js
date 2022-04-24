@@ -11,6 +11,7 @@ function WortDescription() {
     const dispatch = useDispatch()
     const currentWort = useSelector(state => state.main.currentWort)
     const wortTheme = useSelector(state => state.main.wortTheme)
+    const loading = useSelector(state => state.main.loading)
     const group = useSelector(state => state.main.group)
     const wort = useSelector(state => state.main.wort)
 
@@ -24,7 +25,8 @@ function WortDescription() {
     }, [currentWort])
 
     const saveWort = _ => {
-        if (currentWort.id == 0) return
+        if (currentWort.id == 0 || loading) return
+        dispatch(setState({ loading: true }))
         const newWort = {
             description: newDescription,
             translate: translate,
@@ -38,25 +40,32 @@ function WortDescription() {
                 dispatch(setState({
                     message: { text: `Word is changed successfuly` },
                     currentWort: d,
+                    loading: false,
                     wort: wl,
                 }))
             })
             .catch(e => {
-                dispatch(setMessage({ text: "Word was not changed", action: "error" }))
+                dispatch(setState({
+                    message: { text: "Word was not changed", action: "error" },
+                    loading: false,
+                }))
                 console.log(e)
             })
     }
 
     const eraserHandler = _ => {
+        if (loading) return
         const g = currentWort.group == 0 && group.length > 0 ? group[0].id : currentWort.group
-        setNewDescription(currentWort.description)
+        setNewDescription(currentWort.description || "")
         setTranslate(currentWort.translate)
         setDeutschWort(currentWort.wort)
         setGroupID(g)
     }
 
     const deleteHandler = _ => {
+        if (loading) return
         const currentID = currentWort.id
+        dispatch(setState({ loading: true }))
         axios.delete(`/api/wort/${currentID}/`)
             .then(_ => {
                 const newWort = wort.filter(w => w.id != currentID)
@@ -64,11 +73,15 @@ function WortDescription() {
                     message: { text: `Word was deleted successfuly` },
                     wortTheme: wortTheme.filter(wt => wt.wort != currentID),
                     currentWort: newWort[0],
+                    loading: false,
                     wort: newWort,
                 }))
             })
             .catch(e => {
-                dispatch(setMessage({ text: "Word was not deleted", action: "error" }))
+                dispatch(setState({
+                    message: { text: "Word was not deleted", action: "error" },
+                    loading: false,
+                }))
                 console.log(e)
             })
     }
@@ -91,28 +104,26 @@ function WortDescription() {
                 </div>
                 <div className={className("description_field")}>
                     <div>Group:</div>
-                    <div>
-                        <Select
-                            value={group.filter(g => g.id == currentWort.group)[0]}
-                            changeHandler={newGroup => setGroupID(newGroup.id)}
-                            groupList={group}
-                        />
-                    </div>
+                    <Select
+                        value={group.filter(g => g.id == currentWort.group)[0]}
+                        changeHandler={newGroup => setGroupID(newGroup.id)}
+                        groupList={group}
+                    />
                 </div>
                 Description:
                 <textarea
                     onChange={e => setNewDescription(e.target.value)}
-                    style={{ width: "100%", resize: "none" }}
+                    style={{ width: "100%", resize: "none", borderRadius: "5px", padding: "5px" }}
+                    placeholder='empty description'
                     value={newDescription}
-                    rows="3"
+                    rows="6"
                 />
             </div>
             <div style={{ display: "flex", alignItems: "center" }}>
-                <img src="/static/i/eraser.png" onClick={eraserHandler} className={className("icon", "mt2")} />
-                <img src="/static/i/save.png" onClick={_ => saveWort()} className={className("icon", "mt2")} />
+                <img src="/static/i/eraser.png" onClick={eraserHandler} className={className("icon", "mt2", { loading })} />
+                <img src="/static/i/save.png" onClick={_ => saveWort()} className={className("icon", "mt2", { loading })} />
                 <DeleteButton deleteHandler={deleteHandler} />
             </div>
-
         </div>
     )
 }

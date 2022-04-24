@@ -1,6 +1,7 @@
 import { setState, initialWort, setMessage } from '../../reducers/mainReducer';
 import DeleteButton from '../DeleteButton';
 import { connect } from 'react-redux';
+import className from 'classnames';
 import React from 'react';
 import axios from 'axios';
 
@@ -8,7 +9,8 @@ function InputManagement(props) {
     const [name, setName] = React.useState(props.name)
 
     const postHandler = _ => {
-        if ("postHandler" in props) return props.postHandler()
+        if (props.loading) return
+        else if ("postHandler" in props) return props.postHandler()
         props.setState({ loading: true })
         axios.post(`/api/${props.object}/`, { name: name })
             .then(data => {
@@ -20,13 +22,17 @@ function InputManagement(props) {
                 })
             })
             .catch(e => {
-                props.setMessage({ text: `'${props.object} was not created'`, action: "error" })
+                props.setState({
+                    message: { text: `'${props.object} was not created'`, action: "error" },
+                    loading: false,
+                })
                 console.log(e)
             })
     }
 
     const patchHandler = _ => {
-        if ("patchHandler" in props) return props.patchHandler()
+        if (props.loading) return
+        else if ("patchHandler" in props) return props.patchHandler()
         props.setState({ loading: true })
         const data = {
             id: props.id,
@@ -43,13 +49,17 @@ function InputManagement(props) {
                 })
             })
             .catch(e => {
-                props.setMessage({ text: `'${props.object} was not updated'`, action: "error" })
+                props.setState({
+                    message: { text: `'${props.object} was not updated'`, action: "error" },
+                    loading: false,
+                })
                 console.log(e)
             })
     }
 
     const deleteHandler = _ => {
-        if ("deleteHandler" in props) return props.deleteHandler()
+        if (props.loading) return
+        else if ("deleteHandler" in props) return props.deleteHandler()
         props.setState({ loading: true })
         axios.delete(`/api/${props.object}/${props.id}/`)
             .then(_ => {
@@ -65,22 +75,25 @@ function InputManagement(props) {
                 })
             })
             .catch(e => {
-                props.setMessage({ text: `'${props.object} was not deleted'`, action: "error" })
+                props.setState({
+                    message: { text: `'${props.object} was not deleted'`, action: "error" },
+                    loading: false,
+                })
                 console.log(e)
             })
     }
 
     const newHandler = _ => {
         if ("new" in props) {
-            return <img src="/static/i/save.png" onClick={postHandler} className="icon" />
+            return <img src="/static/i/save.png" onClick={postHandler} className={className("icon", { loading: props.loading })} />
         }
-        return <img src="/static/i/save.png" onClick={patchHandler} className="icon" />
+        return <img src="/static/i/save.png" onClick={patchHandler} className={className("icon", { loading: props.loading })} />
     }
 
     return (
         <div className='input_row'>
-            <input className='input' type="text" value={name} onChange={e => setName(e.target.value)} />
-            <img src="/static/i/eraser.png" onClick={_ => setName(props.name)} className="icon" />
+            <input className='input' disabled={props.loading} type="text" value={name} onChange={e => setName(e.target.value)} />
+            <img src="/static/i/eraser.png" onClick={_ => setName(props.name)} className={className("icon", { loading: props.loading })} />
             {newHandler()}
             {!("new" in props) && <DeleteButton deleteHandler={deleteHandler} />}
         </div>

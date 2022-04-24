@@ -1,6 +1,6 @@
-import { setState, setMessage } from '../../reducers/mainReducer';
 import { WortList, WortDescription } from './components';
 import { useSelector, useDispatch } from 'react-redux';
+import { setState } from '../../reducers/mainReducer';
 import WortInput from './components/WortInput';
 import { NavLink } from "react-router-dom";
 import className from 'classnames';
@@ -35,21 +35,27 @@ function SavePage() {
     }
 
     const deleteHandler = wortThemeID => {
+        if (loading) return
         axios.delete(`/api/worttheme/${wortThemeID}/`)
             .then(_ => {
                 const newList = wortTheme.filter(wt => wt.id != wortThemeID)
                 dispatch(setState({
                     message: { text: "Theme was removed from the word successfuly" },
                     wortTheme: newList,
+                    loading: false,
                 }))
             })
             .catch(e => {
-                dispatch(setMessage({ text: "Theme was not removed from the word", action: "error" }))
+                dispatch(setState({
+                    message: { text: "Theme was not removed from the word", action: "error" },
+                    loading: false,
+                }))
                 console.log(e)
             })
     }
 
     const postHandler = themeID => {
+        if (loading) return
         const data = {
             wort: currentWort.id,
             theme: themeID,
@@ -59,16 +65,19 @@ function SavePage() {
                 dispatch(setState({
                     message: { text: "Theme was added to the word successfuly" },
                     wortTheme: [data.data, ...wortTheme],
+                    loading: false,
                 }))
             })
             .catch(e => {
-                dispatch(setMessage({ text: "Theme was not added to the word", action: "error" }))
+                dispatch(setState({
+                    message: { text: "Theme was not added to the word", action: "error" },
+                    loading: false,
+                }))
                 console.log(e)
             })
     }
 
-    if (loading) return <h1>Loading...</h1>
-    else if (group.length == 0) return (
+    if (group.length == 0) return (
         <div className='wort_page_wrapper'>
             <div className='s_container' />
             <div className='m_container m2'>

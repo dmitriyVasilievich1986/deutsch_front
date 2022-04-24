@@ -8,8 +8,8 @@
     height: 15px;
     width: 15px;
 
-    &.inactive {
+    &.loading {
         cursor: default;
-        opacity: 0.2;
+        opacity: .2;
     }
 }

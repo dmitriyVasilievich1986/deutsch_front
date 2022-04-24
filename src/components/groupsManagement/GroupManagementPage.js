@@ -1,10 +1,9 @@
-import { setState } from '../../reducers/mainReducer'
-import InputManagement from './InputManagement'
-import { connect } from 'react-redux'
-import React from 'react'
+import { setState } from '../../reducers/mainReducer';
+import InputManagement from './InputManagement';
+import { connect } from 'react-redux';
+import React from 'react';
 
 function GroupManagementPage(props) {
-    if (props.loading) return <h1>Loading...</h1>
     return (
         <div className='wort_page_wrapper'>
             <div className='s_container' />

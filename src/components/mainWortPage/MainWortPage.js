@@ -1,13 +1,12 @@
-import { initialSelected, setSelected } from '../../reducers/mainReducer'
-import { useSelector, useDispatch } from 'react-redux'
-import { Wort } from './components'
-import Themes from '../Themes'
-import Select from '../Select'
-import React from 'react'
+import { initialSelected, setSelected } from '../../reducers/mainReducer';
+import { useSelector, useDispatch } from 'react-redux';
+import { Wort } from './components';
+import Themes from '../Themes';
+import Select from '../Select';
+import React from 'react';
 
 function MainWortPage() {
     const selected = useSelector(state => state.main.selected)
-    const loading = useSelector(state => state.main.loading)
     const group = useSelector(state => state.main.group)
     const theme = useSelector(state => state.main.theme)
     const wort = useSelector(state => state.main.wort)
@@ -31,8 +30,7 @@ function MainWortPage() {
         dispatch(setSelected({ selected: newGroup }))
     }
 
-    if (loading) return <h1>Loading...</h1>
-    else if (wort.length === 0) return <h1 className='wort_row'>List is empty</h1>
+    if (wort.length === 0) return <h1 className='wort_row'>List is empty</h1>
     return (
         <div className='wort_page_wrapper'>
             <div className='group_container'>
