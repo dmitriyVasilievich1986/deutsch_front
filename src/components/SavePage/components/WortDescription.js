@@ -1,4 +1,4 @@
-import { setState } from '../../../reducers/mainReducer'
+import { setState, setMessage } from '../../../reducers/mainReducer'
 import { useSelector, useDispatch } from 'react-redux'
 import className from 'classnames'
 import Select from '../../Select'
@@ -65,9 +65,14 @@ function WortDescription() {
             .then(data => {
                 const d = data.data
                 const wl = wort.map(w => w.id == d.id ? d : w)
-                dispatch(setState({ wort: wl, currentWort: d }))
+                dispatch(setState({
+                    message: { text: `Word is changed successfuly` },
+                    currentWort: d,
+                    wort: wl,
+                }))
             })
             .catch(e => {
+                dispatch(setMessage({ text: "Word was not changed", action: "error" }))
                 console.log(e)
             })
     }
@@ -86,12 +91,14 @@ function WortDescription() {
             .then(_ => {
                 const newWort = wort.filter(w => w.id != currentID)
                 dispatch(setState({
+                    message: { text: `Word was deleted successfuly` },
                     wortTheme: wortTheme.filter(wt => wt.wort != currentID),
                     currentWort: newWort[0],
                     wort: newWort,
                 }))
             })
             .catch(e => {
+                dispatch(setMessage({ text: "Word was not deleted", action: "error" }))
                 console.log(e)
             })
     }

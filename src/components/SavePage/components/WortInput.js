@@ -1,4 +1,4 @@
-import { setState } from '../../../reducers/mainReducer'
+import { setState, setMessage } from '../../../reducers/mainReducer'
 import { useSelector, useDispatch } from 'react-redux'
 import className from 'classnames'
 import Select from '../../Select'
@@ -28,19 +28,22 @@ function WortInput(props) {
         axios.post(`/api/wort/`, data)
             .then(data => {
                 const w = data.data
-                dispatch(setState({ wort: [w, ...wort], currentWort: w }))
+                dispatch(setState({
+                    message: { text: "Word is created successfuly" },
+                    wort: [w, ...wort],
+                    currentWort: w,
+                }))
             })
-            .catch(errorHandler)
+            .catch(e => {
+                dispatch(setMessage({ text: "Word was not created", action: "error" }))
+                console.log(e)
+            })
     }
 
     const eraserHandler = _ => {
         setNewGroup(group[0])
         setNewTranslate("")
         setNewWort("")
-    }
-
-    const errorHandler = e => {
-        console.log(e)
     }
 
 
@@ -50,11 +53,11 @@ function WortInput(props) {
             <div style={{ width: "100%" }}>
                 <div className={className("description_field")}>
                     <div>Word:</div>
-                    <div><input className={className("input")} type="text" value={newWort} onChange={e => setNewWort(e.target.value)} /></div>
+                    <div><input className={className("input")} placeholder="write the word" type="text" value={newWort} onChange={e => setNewWort(e.target.value)} /></div>
                 </div>
                 <div className={className("description_field")}>
                     <div>Translate:</div>
-                    <div><input className={className("input")} type="text" value={newTranslate} onChange={e => setNewTranslate(e.target.value)} /></div>
+                    <div><input className={className("input")} placeholder="write the translation" type="text" value={newTranslate} onChange={e => setNewTranslate(e.target.value)} /></div>
                 </div>
                 <div className={className("description_field")}>
                     <div>Group:</div>
@@ -70,6 +73,7 @@ function WortInput(props) {
                 <textarea
                     onChange={e => setNewDescription(e.target.value)}
                     style={{ width: "100%", resize: "none" }}
+                    placeholder="empty description"
                     value={newDescription}
                     rows="3"
                 />

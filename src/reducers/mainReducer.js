@@ -7,6 +7,7 @@ export const initialSelected = { id: 0, name: "all" }
 const initialState = {
     selected: initialSelected,
     currentWort: initialWort,
+    message: null,
     loading: true,
     wortTheme: [],
     group: [],
@@ -36,13 +37,16 @@ export const mainReducer = createSlice({
         setGroup: (state, action) => {
             state.group = action.payload.group
         },
+        setMessage: (state, action) => {
+            state.message = action.payload
+        },
         setSelected: (state, action) => {
             state.selected = action.payload.selected
         },
     },
 })
 
-export const { setGroup, setSelected, setWort, setState } = mainReducer.actions
+export const { setGroup, setSelected, setWort, setState, setMessage } = mainReducer.actions
 
 
 export default mainReducer.reducer

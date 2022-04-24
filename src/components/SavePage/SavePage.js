@@ -1,12 +1,12 @@
-import { WortList, WortDescription } from './components'
-import { useSelector, useDispatch } from 'react-redux'
-import { setState } from '../../reducers/mainReducer'
-import WortInput from './components/WortInput'
-import { NavLink } from "react-router-dom"
-import className from 'classnames'
-import Themes from '../Themes'
-import axios from 'axios'
-import React from 'react'
+import { setState, setMessage } from '../../reducers/mainReducer';
+import { WortList, WortDescription } from './components';
+import { useSelector, useDispatch } from 'react-redux';
+import WortInput from './components/WortInput';
+import { NavLink } from "react-router-dom";
+import className from 'classnames';
+import Themes from '../Themes';
+import axios from 'axios';
+import React from 'react';
 
 function SavePage() {
     const currentWort = useSelector(state => state.main.currentWort)
@@ -38,9 +38,15 @@ function SavePage() {
         axios.delete(`/api/worttheme/${wortThemeID}/`)
             .then(_ => {
                 const newList = wortTheme.filter(wt => wt.id != wortThemeID)
-                dispatch(setState({ wortTheme: newList }))
+                dispatch(setState({
+                    message: { text: "Theme was removed from the word successfuly" },
+                    wortTheme: newList,
+                }))
             })
-            .catch(errorHandler)
+            .catch(e => {
+                dispatch(setMessage({ text: "Theme was not removed from the word", action: "error" }))
+                console.log(e)
+            })
     }
 
     const postHandler = themeID => {
@@ -50,13 +56,15 @@ function SavePage() {
         }
         axios.post("/api/worttheme/", data)
             .then(data => {
-                dispatch(setState({ wortTheme: [data.data, ...wortTheme] }))
+                dispatch(setState({
+                    message: { text: "Theme was added to the word successfuly" },
+                    wortTheme: [data.data, ...wortTheme],
+                }))
             })
-            .catch(errorHandler)
-    }
-
-    const errorHandler = e => {
-        console.log(e)
+            .catch(e => {
+                dispatch(setMessage({ text: "Theme was not added to the word", action: "error" }))
+                console.log(e)
+            })
     }
 
     if (loading) return <h1>Loading...</h1>
