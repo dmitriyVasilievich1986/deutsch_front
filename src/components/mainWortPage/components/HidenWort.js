@@ -15,9 +15,8 @@ function HidenWort(props) {
     return (
         <div
             style={{
-                border: "1px solid black",
-                backgroundColor: "#ccc",
-                textAlign: "center",
+                textAlign: "start",
+                cursor: "default",
                 minWidth: "150px",
                 padding: "0 1rem",
                 width: "contain",
