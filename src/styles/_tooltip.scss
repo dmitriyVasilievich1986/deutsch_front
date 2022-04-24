@@ -3,7 +3,7 @@
 .tooltip {
     display: inline-block;
     position: relative;
-    cursor: help;
+    cursor: pointer;
 
     .tooltip_text {
         border: 1px solid $black;
@@ -13,6 +13,7 @@
         position: absolute;
         width: max-content;
         max-height: 250px;
+        min-width: 300px;
         overflow: auto;
         color: $white;
         padding: 5px;
