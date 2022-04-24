@@ -1,4 +1,4 @@
-import { setState, setMessage } from '../../../reducers/mainReducer';
+import { setState } from '../../../reducers/mainReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import className from 'classnames';
 import Select from '../../Select';
@@ -35,12 +35,13 @@ function WortInput(props) {
                     message: { text: "Word is created successfuly" },
                     wort: [w, ...wort],
                     currentWort: w,
+                    loading: false,
                 }))
             })
             .catch(e => {
                 dispatch(setState({
                     message: { text: "Word was not created", action: "error" },
-                    loading: true,
+                    loading: false,
                 }))
                 console.log(e)
             })
