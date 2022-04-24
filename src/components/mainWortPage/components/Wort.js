@@ -78,7 +78,13 @@ function Wort(props) {
                     />
                     <span className={className("tooltip_text")}>
                         {wortList.map(w => (
-                            <div key={w.id} className={className("row")}>{w.wort} / {w.translate}</div>
+                            <div
+                                onClick={_ => dispatch(setState({ currentWort: w }))}
+                                className={className("row")}
+                                key={w.id}
+                            >
+                                {w.wort} / {w.translate
+                                }</div>
                         ))}
                     </span>
                 </div>
