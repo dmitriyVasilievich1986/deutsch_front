@@ -1,41 +1,11 @@
-import { setState, setMessage } from '../../../reducers/mainReducer'
-import { useSelector, useDispatch } from 'react-redux'
-import className from 'classnames'
-import Select from '../../Select'
-import axios from 'axios'
-import React from 'react'
+import { setState, setMessage } from '../../../reducers/mainReducer';
+import { useSelector, useDispatch } from 'react-redux';
+import DeleteButton from '../../DeleteButton';
+import className from 'classnames';
+import Select from '../../Select';
+import axios from 'axios';
+import React from 'react';
 
-function Delete(props) {
-    const [animation, setAnimation] = React.useState(false)
-    let timer = React.useRef(null)
-
-    const downHandler = e => {
-        setAnimation(true)
-        timer.current = setTimeout(_ => {
-            setAnimation(false)
-            props.deleteHandler()
-            timer.current = null
-        }, 2400)
-    }
-
-    const upHandler = _ => {
-        if (timer.current) {
-            clearTimeout(timer.current)
-            setAnimation(false)
-        }
-    }
-
-    return (
-        <div className={className("test_class", { animation })}>
-            <img
-                className={className("icon", "mt2")}
-                onMouseDown={downHandler}
-                src="/static/i/bin.png"
-                onMouseUp={upHandler}
-            />
-        </div>
-    )
-}
 
 function WortDescription() {
     const dispatch = useDispatch()
@@ -140,7 +110,7 @@ function WortDescription() {
             <div style={{ display: "flex", alignItems: "center" }}>
                 <img src="/static/i/eraser.png" onClick={eraserHandler} className={className("icon", "mt2")} />
                 <img src="/static/i/save.png" onClick={_ => saveWort()} className={className("icon", "mt2")} />
-                <Delete deleteHandler={deleteHandler} />
+                <DeleteButton deleteHandler={deleteHandler} />
             </div>
 
         </div>

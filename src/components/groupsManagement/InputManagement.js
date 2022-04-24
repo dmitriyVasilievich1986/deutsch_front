@@ -1,7 +1,8 @@
-import { setState, initialWort, setMessage } from '../../reducers/mainReducer'
-import { connect } from 'react-redux'
-import React from 'react'
-import axios from 'axios'
+import { setState, initialWort, setMessage } from '../../reducers/mainReducer';
+import DeleteButton from '../DeleteButton';
+import { connect } from 'react-redux';
+import React from 'react';
+import axios from 'axios';
 
 function InputManagement(props) {
     const [name, setName] = React.useState(props.name)
@@ -81,7 +82,7 @@ function InputManagement(props) {
             <input className='input' type="text" value={name} onChange={e => setName(e.target.value)} />
             <img src="/static/i/eraser.png" onClick={_ => setName(props.name)} className="icon" />
             {newHandler()}
-            {!("new" in props) && <img src="/static/i/bin.png" onClick={deleteHandler} className="icon" />}
+            {!("new" in props) && <DeleteButton deleteHandler={deleteHandler} />}
         </div>
     )
 }
