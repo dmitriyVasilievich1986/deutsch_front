@@ -55,9 +55,13 @@ function Wort(props) {
                     src='/static/i/question_mark.png'
                     className={className("icon")}
                 />
-                <span className={className("tooltip_text")}>
-                    {currentWort.description}
-                </span>
+                <textarea
+                    className={className("tooltip_text")}
+                    value={currentWort.description}
+                    style={{ resize: "none" }}
+                    disabled={true}
+                    rows="10"
+                />
             </div>
         )
     }

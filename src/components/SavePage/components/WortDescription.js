@@ -56,6 +56,7 @@ function WortDescription() {
     const saveWort = _ => {
         if (currentWort.id == 0) return
         const newWort = {
+            description: newDescription,
             translate: translate,
             wort: deutschWort,
             group: groupID,
