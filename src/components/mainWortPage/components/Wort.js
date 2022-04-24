@@ -37,7 +37,7 @@ function Wort(props) {
     const showWort = _ => {
         return (
             <div
-                style={{ textAlign: "end", cursor: "pointer" }}
+                style={{ textAlign: "end", cursor: "pointer", minWidth: "100px" }}
                 onClick={randWort}
             >
                 <p>
@@ -47,19 +47,41 @@ function Wort(props) {
         )
     }
 
+    const Description = _ => {
+        if (!currentWort?.description) return null
+        return (
+            <div className={className("tooltip")}>
+                <img
+                    src='/static/i/question_mark.png'
+                    className={className("icon")}
+                />
+                <span className={className("tooltip_text")}>
+                    {currentWort.description}
+                </span>
+            </div>
+        )
+    }
+
     if (currentWort === null || wortList.length === 0) return <h1 className='wort_row'>List is empty</h1>
     return (
         <div className='wort_wrapper'>
-            <div className={className('m2', "tooltip")}>
-                Количество слов: {wortList.length}
-                <span className={className("tooltip_text")}>
-                    {wortList.map(w => (
-                        <div key={w.id} className={className("row")}>{w.wort} / {w.translate}</div>
-                    ))}
-                </span>
+            <div className={className('m2')} style={{ display: "flex" }}>
+                Words count: {wortList.length}
+                <div className={className("tooltip")}>
+                    <img
+                        src='/static/i/question_mark.png'
+                        className={className("icon")}
+                    />
+                    <span className={className("tooltip_text")}>
+                        {wortList.map(w => (
+                            <div key={w.id} className={className("row")}>{w.wort} / {w.translate}</div>
+                        ))}
+                    </span>
+                </div>
             </div>
             <div className='wort_row'>
                 <CopyClipboard wort={currentWort.wort} />
+                <Description />
                 {showWort()}
                 <img
                     onClick={_ => setReverse(!reverse)}

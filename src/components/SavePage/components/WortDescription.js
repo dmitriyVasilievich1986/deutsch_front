@@ -44,6 +44,7 @@ function WortDescription() {
     const group = useSelector(state => state.main.group)
     const wort = useSelector(state => state.main.wort)
 
+    const [newDescription, setNewDescription] = React.useState("")
     const [deutschWort, setDeutschWort] = React.useState("")
     const [translate, setTranslate] = React.useState("")
     const [groupID, setGroupID] = React.useState(0)
@@ -72,6 +73,7 @@ function WortDescription() {
 
     const eraserHandler = _ => {
         const g = currentWort.group == 0 && group.length > 0 ? group[0].id : currentWort.group
+        setNewDescription(currentWort.description)
         setTranslate(currentWort.translate)
         setDeutschWort(currentWort.wort)
         setGroupID(g)
@@ -119,6 +121,13 @@ function WortDescription() {
                         />
                     </div>
                 </div>
+                Description:
+                <textarea
+                    onChange={e => setNewDescription(e.target.value)}
+                    style={{ width: "100%", resize: "none" }}
+                    value={newDescription}
+                    rows="3"
+                />
             </div>
             <div style={{ display: "flex", alignItems: "center" }}>
                 <img src="/static/i/eraser.png" onClick={eraserHandler} className={className("icon", "mt2")} />

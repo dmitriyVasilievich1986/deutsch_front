@@ -7,17 +7,18 @@ import axios from 'axios'
 
 
 function WortInput(props) {
-    const currentWort = useSelector(state => state.main.currentWort)
     const group = useSelector(state => state.main.group)
     const wort = useSelector(state => state.main.wort)
     const dispatch = useDispatch()
 
+    const [newDescription, setNewDescription] = React.useState("")
     const [newTranslate, setNewTranslate] = React.useState("")
     const [newGroup, setNewGroup] = React.useState(group[0])
     const [newWort, setNewWort] = React.useState("")
 
     const saveHandler = _ => {
         const data = {
+            description: newDescription,
             translate: newTranslate,
             group: newGroup.id,
             wort: newWort,
@@ -65,6 +66,13 @@ function WortInput(props) {
                         />
                     </div>
                 </div>
+                Description:
+                <textarea
+                    onChange={e => setNewDescription(e.target.value)}
+                    style={{ width: "100%", resize: "none" }}
+                    value={newDescription}
+                    rows="3"
+                />
                 <div style={{ display: "flex", marginTop: "1rem" }}>
                     <img src="/static/i/eraser.png" onClick={eraserHandler} className="icon" />
                     <img src="/static/i/save.png" onClick={saveHandler} className="icon" />
