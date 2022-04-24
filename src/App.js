@@ -6,6 +6,7 @@ import className from 'classnames'
 import axios from 'axios'
 import React from 'react'
 
+import Alert from './components/Alert'
 
 function App() {
     document.title = process.env?.REACT_APP_NAME || "Deutsch"
@@ -41,6 +42,7 @@ function App() {
         <div>
             <BrowserRouter>
                 <Navbar />
+                <Alert />
                 <Routes>
                     <Route exact path="/" element={<MainWortPage />} />
                     <Route path="/group" element={<GroupPage />} />
