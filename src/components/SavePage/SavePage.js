@@ -1,6 +1,6 @@
 import { WortList, WortDescription } from './components';
 import { useSelector, useDispatch } from 'react-redux';
-import { setState } from '../../reducers/mainReducer';
+import { setState } from 'reduxReducers/mainReducer';
 import WortInput from './components/WortInput';
 import { NavLink } from "react-router-dom";
 import className from 'classnames';
@@ -8,18 +8,20 @@ import Themes from '../Themes';
 import axios from 'axios';
 import React from 'react';
 
+
 function SavePage() {
-    const currentWort = useSelector(state => state.main.currentWort)
-    const wortTheme = useSelector(state => state.main.wortTheme)
-    const loading = useSelector(state => state.main.loading)
-    const group = useSelector(state => state.main.group)
-    const dispatch = useDispatch()
+    const currentWort = useSelector(state => state.main.currentWort);
+    const wortTheme = useSelector(state => state.main.wortTheme);
+    const loading = useSelector(state => state.main.loading);
+    const group = useSelector(state => state.main.group);
+    const dispatch = useDispatch();
 
     const getThemes = _ => {
-        const newList = []
+        const newList = [];
+
         wortTheme.map(wt => {
             if (wt.wort == currentWort.id) {
-                newList.push(wt.theme)
+                newList.push(wt.theme);
             }
         })
         return newList
@@ -27,53 +29,57 @@ function SavePage() {
 
     const clickHandler = (active, themeID) => {
         if (active) {
-            const wtID = wortTheme.filter(wt => wt.wort == currentWort.id && wt.theme == themeID)[0]
-            deleteHandler(wtID.id)
+            const wtID = wortTheme.find(wt => wt.wort == currentWort.id && wt.theme == themeID);
+            deleteHandler(wtID.id);
         } else {
-            postHandler(themeID)
+            postHandler(themeID);
         }
     }
 
     const deleteHandler = wortThemeID => {
         if (loading) return
+
         axios.delete(`/api/worttheme/${wortThemeID}/`)
             .then(_ => {
-                const newList = wortTheme.filter(wt => wt.id != wortThemeID)
+                const newList = wortTheme.filter(wt => wt.id != wortThemeID);
+
                 dispatch(setState({
                     message: { text: "Theme was removed from the word successfuly" },
                     wortTheme: newList,
                     loading: false,
-                }))
+                }));
             })
             .catch(e => {
                 dispatch(setState({
                     message: { text: "Theme was not removed from the word", action: "error" },
                     loading: false,
-                }))
-                console.log(e)
+                }));
+                console.log(e);
             })
     }
 
     const postHandler = themeID => {
         if (loading) return
+
         const data = {
             wort: currentWort.id,
             theme: themeID,
-        }
+        };
+
         axios.post("/api/worttheme/", data)
             .then(data => {
                 dispatch(setState({
                     message: { text: "Theme was added to the word successfuly" },
                     wortTheme: [data.data, ...wortTheme],
                     loading: false,
-                }))
+                }));
             })
             .catch(e => {
                 dispatch(setState({
                     message: { text: "Theme was not added to the word", action: "error" },
                     loading: false,
-                }))
-                console.log(e)
+                }));
+                console.log(e);
             })
     }
 

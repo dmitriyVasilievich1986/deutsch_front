@@ -1,37 +1,39 @@
-import { setState, initialWort } from '../../../reducers/mainReducer'
-import { useSelector, useDispatch } from 'react-redux'
-import CopyClipboard from './CopyClipboard'
-import HidenWort from './HidenWort'
-import className from 'classnames'
-import React from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { setState } from 'reduxReducers/mainReducer';
+import CopyClipboard from './CopyClipboard';
+import { initialWort } from 'constants';
+import HidenWort from './HidenWort';
+import className from 'classnames';
+import React from 'react';
+
 
 function Wort(props) {
-    const currentWort = useSelector(state => state.main.currentWort)
-    const wortTheme = useSelector(state => state.main.wortTheme)
-    const selected = useSelector(state => state.main.selected)
-    const wort = useSelector(state => state.main.wort)
-    const dispatch = useDispatch()
+    const currentWort = useSelector(state => state.main.currentWort);
+    const wortTheme = useSelector(state => state.main.wortTheme);
+    const selected = useSelector(state => state.main.selected);
+    const wort = useSelector(state => state.main.wort);
+    const dispatch = useDispatch();
 
-    const [reverse, setReverse] = React.useState(false)
-    const [wortList, setWortList] = React.useState([])
+    const [reverse, setReverse] = React.useState(false);
+    const [wortList, setWortList] = React.useState([]);
 
     const randWort = _ => {
-        const i = Math.floor(Math.random() * wortList.length)
-        dispatch(setState({ currentWort: wortList?.[i] || initialWort }))
+        const i = Math.floor(Math.random() * wortList.length);
+        dispatch(setState({ currentWort: wortList?.[i] || initialWort }));
     }
 
     React.useEffect(_ => {
-        randWort()
+        randWort();
     }, [wortList])
 
     React.useEffect(_ => {
-        const themeList = wortTheme.filter(wt => props.themeList.includes(wt.theme)).map(t => t.wort)
+        const themeList = wortTheme.filter(wt => props.themeList.includes(wt.theme)).map(t => t.wort);
         const wList = wort
             .filter(w => (
                 (themeList.includes(w.id) || themeList.length == 0) &&
                 (w.group == selected.id || selected.id == 0)
             ))
-        setWortList(wList)
+        setWortList(wList);
     }, [props.themeList, selected])
 
     const showWort = _ => {

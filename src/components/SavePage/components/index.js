@@ -1,5 +1,6 @@
-import WortDescription from './WortDescription'
-import WortList from './WortList'
+import WortDescription from './WortDescription';
+import WortList from './WortList';
+
 
 export {
     WortDescription,

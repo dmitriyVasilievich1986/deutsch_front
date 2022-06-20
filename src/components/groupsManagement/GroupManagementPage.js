@@ -1,7 +1,8 @@
-import { setState } from '../../reducers/mainReducer';
+import { setState } from 'reduxReducers/mainReducer';
 import InputManagement from './InputManagement';
 import { connect } from 'react-redux';
 import React from 'react';
+
 
 function GroupManagementPage(props) {
     return (

@@ -2,25 +2,27 @@ import { useSelector } from 'react-redux';
 import className from 'classnames';
 import React from 'react';
 
-function DeleteButton(props) {
-    const loading = useSelector(state => state.main.loading)
-    const [animation, setAnimation] = React.useState(false)
-    let timer = React.useRef(null)
 
-    const downHandler = e => {
+function DeleteButton(props) {
+    const loading = useSelector(state => state.main.loading);
+    const [animation, setAnimation] = React.useState(false);
+    let timer = React.useRef(null);
+
+    const downHandler = _ => {
         if (loading) return
-        setAnimation(true)
+
+        setAnimation(true);
         timer.current = setTimeout(_ => {
-            setAnimation(false)
-            props.deleteHandler()
-            timer.current = null
+            setAnimation(false);
+            props.deleteHandler();
+            timer.current = null;
         }, 2400)
     }
 
     const upHandler = _ => {
         if (timer.current) {
-            clearTimeout(timer.current)
-            setAnimation(false)
+            clearTimeout(timer.current);
+            setAnimation(false);
         }
     }
 

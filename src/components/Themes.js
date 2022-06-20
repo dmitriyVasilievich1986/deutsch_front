@@ -1,27 +1,29 @@
-import { useSelector } from 'react-redux'
-import className from 'classnames'
-import React from 'react'
+import { useSelector } from 'react-redux';
+import className from 'classnames';
+import React from 'react';
+
 
 function Themes(props) {
-    const [themeList, setThemeList] = React.useState([])
-    const theme = useSelector(state => state.main.theme)
+    const [themeList, setThemeList] = React.useState([]);
+    const theme = useSelector(state => state.main.theme);
 
     React.useEffect(_ => {
-        setThemeList(props?.themes || [])
+        setThemeList(props?.themes || []);
     }, [props.themes])
 
     const filterList = (active, themeID) => {
         if (active) {
-            setThemeList(themeList.filter(t => t != themeID))
+            setThemeList(themeList.filter(t => t != themeID));
         } else {
-            setThemeList([themeID, ...themeList])
+            setThemeList([themeID, ...themeList]);
         }
-        props?.clickHandler && props.clickHandler(active, themeID)
+        props?.clickHandler && props.clickHandler(active, themeID);
     }
 
     return (
         <div>
             <div style={{ margin: "1rem 2rem" }}>Themes:</div>
+
             <div className={className("theme_badge_list")}>
                 {theme.filter(t => themeList.includes(t.id)).map(t => (
                     <div
@@ -34,6 +36,7 @@ function Themes(props) {
                 ))}
             </div>
             <div className={className("splitter")}><div /></div>
+
             <div className={className("theme_badge_list")}>
                 {theme.filter(t => !themeList.includes(t.id)).map(t => (
                     <div

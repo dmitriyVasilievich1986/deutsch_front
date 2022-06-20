@@ -1,51 +1,54 @@
-import className from 'classnames'
-import React from 'react'
+import className from 'classnames';
+import React from 'react';
+
 
 function Select(props) {
-    const [groupList, setGroupList] = React.useState(props.groupList)
-    const [value, setValue] = React.useState(props.value.name)
-    const [show, setShow] = React.useState(false)
-    const listRef = React.useRef(null)
+    const [groupList, setGroupList] = React.useState(props.groupList);
+    const [value, setValue] = React.useState(props.value.name);
+    const [show, setShow] = React.useState(false);
+    const listRef = React.useRef(null);
 
     React.useEffect(_ => {
-        setValue(props.value.name)
+        setValue(props.value.name);
     }, [props.value])
 
     React.useEffect(_ => {
         const clickPoutsideHandler = e => {
             if (listRef.current && !listRef.current.contains(e.target)) {
-                setShow(false)
+                setShow(false);
             }
         }
-        document.addEventListener("mousedown", clickPoutsideHandler)
+        document.addEventListener("mousedown", clickPoutsideHandler);
         return _ => { document.removeEventListener("mousedown", clickPoutsideHandler) }
     }, [listRef])
 
     React.useEffect(_ => {
         let newValue = { name: "" }
         if (show) {
-            setGroupList(props.groupList)
+            setGroupList(props.groupList);
         } else {
-            const newItem = props.groupList.filter(g => g.name.toLocaleLowerCase().includes(value))
+            const newItem = props.groupList.filter(g => g.name.toLocaleLowerCase().includes(value));
+
             if (newItem.length == 1) {
-                newValue = newItem[0]
-                props?.changeHandler && props.changeHandler(newValue)
+                newValue = newItem[0];
+                props?.changeHandler && props.changeHandler(newValue);
             } else {
-                newValue = props.value
+                newValue = props.value;
             }
         }
-        setValue(newValue.name)
+        setValue(newValue.name);
     }, [show])
 
     const onChangeHandler = e => {
-        const v = e.target.value
+        const v = e.target.value;
+
         if (v == "") {
-            setGroupList(props.groupList)
+            setGroupList(props.groupList);
         } else {
-            const newList = props.groupList.filter(g => g.name.toLocaleLowerCase().includes(v))
-            setGroupList(newList)
+            const newList = props.groupList.filter(g => g.name.toLocaleLowerCase().includes(v));
+            setGroupList(newList);
         }
-        setValue(v)
+        setValue(v);
     }
 
     return (

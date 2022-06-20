@@ -1,10 +1,12 @@
-import React from 'react'
+import React from 'react';
+
 
 function HidenWort(props) {
-    const [show, setShow] = React.useState(false)
+    const [show, setShow] = React.useState(false);
 
     const translate = _ => {
         if (!props.wort) return null
+
         if (show) {
             return <p>{props.wort}</p>
         } else {

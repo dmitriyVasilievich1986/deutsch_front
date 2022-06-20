@@ -1,7 +1,8 @@
 import { MainWortPage, Error404, SavePage, Navbar, GroupPage, ThemePage } from './components';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { setState, initialWort } from './reducers/mainReducer';
+import { setState } from 'reduxReducers/mainReducer';
 import { useDispatch } from 'react-redux';
+import { initialWort } from 'constants';
 import Alert from './components/Alert';
 import className from 'classnames';
 import axios from 'axios';

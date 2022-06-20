@@ -1,5 +1,6 @@
-import { NavLink, useLocation } from "react-router-dom"
-import React from 'react'
+import { NavLink, useLocation } from "react-router-dom";
+import React from 'react';
+
 
 function Navbar(props) {
     const routes = [
@@ -7,9 +8,10 @@ function Navbar(props) {
         { path: "/group/", name: "Groups" },
         { path: "/theme/", name: "Themes" },
         { path: "/save/", name: "Words" },
-    ]
+    ];
 
-    const path = useLocation()
+    const path = useLocation();
+
     return (
         <div className="navbar">
             <div className="m_container" />

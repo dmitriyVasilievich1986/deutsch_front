@@ -1,4 +1,5 @@
-import Wort from './Wort'
+import Wort from './Wort';
+
 
 export {
     Wort,

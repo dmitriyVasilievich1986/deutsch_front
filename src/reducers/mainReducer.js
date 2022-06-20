@@ -1,8 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { initialWort, initialSelected } from 'constants';
+import { createSlice } from '@reduxjs/toolkit';
 
-
-export const initialWort = { id: 0, wort: "", translate: "", group: 0 }
-export const initialSelected = { id: 0, name: "all" }
 
 const initialState = {
     selected: initialSelected,

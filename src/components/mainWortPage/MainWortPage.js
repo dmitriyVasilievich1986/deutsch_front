@@ -1,33 +1,35 @@
-import { initialSelected, setSelected } from '../../reducers/mainReducer';
+import { setSelected } from 'reduxReducers/mainReducer';
 import { useSelector, useDispatch } from 'react-redux';
+import { initialSelected } from 'constants';
 import { Wort } from './components';
 import Themes from '../Themes';
 import Select from '../Select';
 import React from 'react';
 
-function MainWortPage() {
-    const selected = useSelector(state => state.main.selected)
-    const group = useSelector(state => state.main.group)
-    const theme = useSelector(state => state.main.theme)
-    const wort = useSelector(state => state.main.wort)
-    const dispatch = useDispatch()
 
-    const [themeList, setThemeList] = React.useState([])
+function MainWortPage() {
+    const selected = useSelector(state => state.main.selected);
+    const group = useSelector(state => state.main.group);
+    const theme = useSelector(state => state.main.theme);
+    const wort = useSelector(state => state.main.wort);
+    const dispatch = useDispatch();
+
+    const [themeList, setThemeList] = React.useState([]);
 
     React.useEffect(_ => {
-        setThemeList([])
+        setThemeList([]);
     }, [theme])
 
     const clickHandler = (active, themeID) => {
         if (active) {
-            setThemeList(themeList.filter(t => t != themeID))
+            setThemeList(themeList.filter(t => t != themeID));
         } else {
-            setThemeList([themeID, ...themeList])
+            setThemeList([themeID, ...themeList]);
         }
     }
 
     const changeHandler = newGroup => {
-        dispatch(setSelected({ selected: newGroup }))
+        dispatch(setSelected({ selected: newGroup }));
     }
 
     if (wort.length === 0) return <h1 className='wort_row'>List is empty</h1>

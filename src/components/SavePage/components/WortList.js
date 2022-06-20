@@ -1,13 +1,13 @@
-import { setState } from '../../../reducers/mainReducer'
-import { useSelector, useDispatch } from 'react-redux'
-import className from 'classnames'
-import Select from '../../Select'
-import React from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { setState } from 'reduxReducers/mainReducer';
+import Select from '../../Select';
+import React from 'react';
+
 
 function WortList() {
-    const currentWort = useSelector(state => state.main.currentWort)
-    const wort = useSelector(state => state.main.wort)
-    const dispatch = useDispatch()
+    const currentWort = useSelector(state => state.main.currentWort);
+    const wort = useSelector(state => state.main.wort);
+    const dispatch = useDispatch();
 
     return (
         <div style={{ margin: "2rem", width: "80%" }}>
