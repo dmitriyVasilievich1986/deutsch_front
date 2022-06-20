@@ -1,19 +1,20 @@
-import { MainWortPage, Error404, SavePage, Navbar, GroupPage, ThemePage } from './components'
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { setState } from './reducers/mainReducer'
-import { useDispatch } from 'react-redux'
-import className from 'classnames'
-import axios from 'axios'
-import React from 'react'
+import { MainWortPage, Error404, SavePage, Navbar, GroupPage, ThemePage } from './components';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { setState, initialWort } from './reducers/mainReducer';
+import { useDispatch } from 'react-redux';
+import Alert from './components/Alert';
+import className from 'classnames';
+import axios from 'axios';
+import React from 'react';
 
-import Alert from './components/Alert'
 
 function App() {
-    document.title = process.env?.REACT_APP_NAME || "Deutsch"
-    const dispatch = useDispatch()
+    document.title = process.env?.REACT_APP_NAME || "Deutsch";
+    const dispatch = useDispatch();
 
     React.useEffect(_ => {
-        dispatch(setState({ loading: true }))
+        dispatch(setState({ loading: true }));
+
         Promise.all(([
             axios.get("/api/worttheme/"),
             axios.get("/api/group/"),
@@ -21,8 +22,9 @@ function App() {
             axios.get("/api/wort/"),
         ]))
             .then(values => {
-                const [wortTheme, group, theme, wort] = values
-                const currentWort = wort.data?.[0] || initialWort
+                const [wortTheme, group, theme, wort] = values;
+                const currentWort = wort.data?.[0] || initialWort;
+
                 dispatch(setState({
                     wortTheme: wortTheme.data,
                     currentWort: currentWort,
@@ -30,11 +32,11 @@ function App() {
                     theme: theme.data,
                     wort: wort.data,
                     loading: false,
-                }))
+                }));
             })
             .catch(e => {
-                dispatch(setState({ loading: false }))
-                console.log(e)
+                dispatch(setState({ loading: false }));
+                console.log(e);
             })
     }, [])
 
@@ -42,7 +44,9 @@ function App() {
         <div>
             <BrowserRouter>
                 <Navbar />
+
                 <Alert />
+
                 <Routes>
                     <Route exact path="/" element={<MainWortPage />} />
                     <Route path="/group" element={<GroupPage />} />
@@ -51,6 +55,7 @@ function App() {
                     <Route path="*" element={<Error404 />} />
                 </Routes>
             </BrowserRouter>
+
             <div className={className("empty_block")} />
         </div>
     )
