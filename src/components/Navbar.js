@@ -5,7 +5,7 @@ import React from 'react';
 function Navbar(props) {
     const routes = [
         { path: "/", name: "Main" },
-        { path: "/group/", name: "Groups" },
+        // { path: "/group/", name: "Groups" },
         { path: "/theme/", name: "Themes" },
         { path: "/save/", name: "Words" },
     ];
