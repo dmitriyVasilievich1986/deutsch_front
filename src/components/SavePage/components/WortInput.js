@@ -9,7 +9,7 @@ import axios from 'axios';
 function WortInput(props) {
     const loading = useSelector(state => state.main.loading);
     const group = useSelector(state => state.main.group);
-    const wort = useSelector(state => state.main.wort);
+    const word = useSelector(state => state.main.word);
     const dispatch = useDispatch();
 
     const [newDescription, setNewDescription] = React.useState("");
@@ -26,19 +26,19 @@ function WortInput(props) {
             description: newDescription,
             translate: newTranslate,
             group: newGroup.id,
-            wort: newWort,
+            word: newWort,
         };
 
         setNewTranslate("");
         setNewWort("");
 
-        axios.post(`/api/wort/`, data)
+        axios.post(`/api/word/`, data)
             .then(data => {
                 const w = data.data;
 
                 dispatch(setState({
                     message: { text: "Word is created successfuly" },
-                    wort: [w, ...wort],
+                    word: [w, ...word],
                     currentWort: w,
                     loading: false,
                 }));

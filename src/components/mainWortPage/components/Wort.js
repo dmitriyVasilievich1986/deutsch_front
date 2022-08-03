@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { setState } from 'reduxReducers/mainReducer';
 import CopyClipboard from './CopyClipboard';
-import { initialWort } from 'constants';
+import { initialWord } from 'constants';
 import HidenWort from './HidenWort';
 import className from 'classnames';
 import React from 'react';
@@ -11,15 +11,20 @@ function Wort(props) {
     const currentWort = useSelector(state => state.main.currentWort);
     const wortTheme = useSelector(state => state.main.wortTheme);
     const selected = useSelector(state => state.main.selected);
-    const wort = useSelector(state => state.main.wort);
+    const word = useSelector(state => state.main.word);
     const dispatch = useDispatch();
 
     const [reverse, setReverse] = React.useState(false);
     const [wortList, setWortList] = React.useState([]);
 
     const randWort = _ => {
-        const i = Math.floor(Math.random() * wortList.length);
-        dispatch(setState({ currentWort: wortList?.[i] || initialWort }));
+        if (wortList.length > 1) {
+            const randomIndex = Math.floor(Math.random() * wortList.length - 1);
+            const randomWord = wortList.filter(w => w.id != currentWort.id)[randomIndex];
+            dispatch(setState({ currentWort: randomWord }));
+        } else if (wortList.length == 1) {
+            dispatch(setState({ currentWort: wortList[0] }));
+        }
     }
 
     React.useEffect(_ => {
@@ -28,10 +33,10 @@ function Wort(props) {
 
     React.useEffect(_ => {
         const themeList = wortTheme.filter(wt => props.themeList.includes(wt.theme)).map(t => t.wort);
-        const wList = wort
+        const wList = word
             .filter(w => (
                 (themeList.includes(w.id) || themeList.length == 0) &&
-                (w.group == selected.id || selected.id == 0)
+                (w.group == selected.name || selected.id == 0)
             ))
         setWortList(wList);
     }, [props.themeList, selected])
@@ -43,7 +48,7 @@ function Wort(props) {
                 onClick={randWort}
             >
                 <p>
-                    {reverse ? currentWort.translate : currentWort.wort}
+                    {reverse ? currentWort.translate : currentWort.word}
                 </p>
             </div>
         )
@@ -85,14 +90,14 @@ function Wort(props) {
                                 className={className("row")}
                                 key={w.id}
                             >
-                                {w.wort} / {w.translate
-                                }</div>
+                                {w.word} / {w.translate}
+                            </div>
                         ))}
                     </span>
                 </div>
             </div>
             <div className='wort_row'>
-                <CopyClipboard wort={currentWort.wort} />
+                <CopyClipboard wort={currentWort.word} />
                 <Description />
                 {showWort()}
                 <img
@@ -100,7 +105,7 @@ function Wort(props) {
                     src='/static/i/reverse.png'
                     className='reverse_image'
                 />
-                <HidenWort wort={reverse ? currentWort.wort : currentWort.translate} />
+                <HidenWort wort={reverse ? currentWort.word : currentWort.translate} />
             </div>
         </div>
     )

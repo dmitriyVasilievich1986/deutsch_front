@@ -20,6 +20,7 @@ function Themes(props) {
         props?.clickHandler && props.clickHandler(active, themeID);
     }
 
+    if (theme.length == 0) return null
     return (
         <div>
             <div style={{ margin: "1rem 2rem" }}>Themes:</div>

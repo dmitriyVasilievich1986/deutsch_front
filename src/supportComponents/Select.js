@@ -1,21 +1,19 @@
 import className from 'classnames';
-import loDash from 'lodash';
 import React from 'react';
 
 
 function Select(props) {
     const [groupList, setGroupList] = React.useState(props.groupList);
+    const [value, setValue] = React.useState(null);
     const [show, setShow] = React.useState(false);
-    const [value, setValue] = React.useState("");
     const listRef = React.useRef(null);
 
     React.useEffect(_ => {
-        try {
-            const newValue = groupList.find(g => loDash.isEqual(g, props.value));
-            setValue(newValue.name);
-            console.log("newValue", newValue)
-        } catch { }
-    }, [props.value, props.groupList])
+        if (groupList.length > 1) {
+
+        }
+        setValue(props.value.name);
+    }, [props.value])
 
     React.useEffect(_ => {
         const clickPoutsideHandler = e => {
@@ -38,7 +36,7 @@ function Select(props) {
                 newValue = newItem[0];
                 props?.changeHandler && props.changeHandler(newValue);
             } else {
-                newValue = { name: value };
+                newValue = props.value;
             }
         }
         setValue(newValue.name);
@@ -56,7 +54,6 @@ function Select(props) {
         setValue(v);
     }
 
-    // if (groupList.length == 0) return null
     return (
         <div className={className('group_list_wrapper')}>
             <input

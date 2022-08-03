@@ -1,16 +1,16 @@
-import { initialWort, initialSelected } from 'constants';
+import { initialWord, initialSelected } from 'constants';
 import { createSlice } from '@reduxjs/toolkit';
 
 
 const initialState = {
     selected: initialSelected,
-    currentWort: initialWort,
+    currentWort: initialWord,
     message: null,
     loading: true,
     wortTheme: [],
     group: [],
     theme: [],
-    wort: [],
+    word: [],
 }
 
 export const mainReducer = createSlice({
@@ -18,12 +18,12 @@ export const mainReducer = createSlice({
     name: 'main',
     reducers: {
         setWort: (state, action) => {
-            const w = action.payload?.wort || state.wort
+            const w = action.payload?.word || state.word
             const i = Math.floor(Math.random() * w.length)
             return {
                 ...state,
-                currentWort: w?.[i] || initialWort,
-                wort: w,
+                currentWord: w?.[i] || initialWord,
+                word: w,
             }
         },
         setState: (state, action) => {

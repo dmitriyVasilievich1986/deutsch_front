@@ -20,7 +20,7 @@ function SavePage() {
         const newList = [];
 
         wortTheme.map(wt => {
-            if (wt.wort == currentWort.id) {
+            if (wt.word == currentWort.id) {
                 newList.push(wt.theme);
             }
         })
@@ -29,7 +29,7 @@ function SavePage() {
 
     const clickHandler = (active, themeID) => {
         if (active) {
-            const wtID = wortTheme.find(wt => wt.wort == currentWort.id && wt.theme == themeID);
+            const wtID = wortTheme.find(wt => wt.word == currentWort.id && wt.theme == themeID);
             deleteHandler(wtID.id);
         } else {
             postHandler(themeID);
@@ -39,7 +39,7 @@ function SavePage() {
     const deleteHandler = wortThemeID => {
         if (loading) return
 
-        axios.delete(`/api/worttheme/${wortThemeID}/`)
+        axios.delete(`/api/wordtheme/${wortThemeID}/`)
             .then(_ => {
                 const newList = wortTheme.filter(wt => wt.id != wortThemeID);
 
@@ -62,11 +62,11 @@ function SavePage() {
         if (loading) return
 
         const data = {
-            wort: currentWort.id,
+            word: currentWort.id,
             theme: themeID,
         };
 
-        axios.post("/api/worttheme/", data)
+        axios.post("/api/wordtheme/", data)
             .then(data => {
                 dispatch(setState({
                     message: { text: "Theme was added to the word successfuly" },
@@ -83,15 +83,15 @@ function SavePage() {
             })
     }
 
-    if (group.length == 0) return (
-        <div className='wort_page_wrapper'>
-            <div className='s_container' />
-            <div className='m_container m2'>
-                Create a group of words first - <NavLink className={className("main_link")} to="/group/">groups</NavLink>
-            </div>
-            <div className='s_container' />
-        </div>
-    )
+    // if (group.length == 0) return (
+    //     <div className='wort_page_wrapper'>
+    //         <div className='s_container' />
+    //         <div className='m_container m2'>
+    //             Create a group of words first - <NavLink className={className("main_link")} to="/group/">groups</NavLink>
+    //         </div>
+    //         <div className='s_container' />
+    //     </div>
+    // )
     return (
         <div className='wort_page_wrapper'>
             <div className='s_container'>

@@ -1,9 +1,10 @@
-import { MainWortPage, Error404, SavePage, Navbar, GroupPage, ThemePage } from './components';
+import { wordThemeValidator, themeValidator, groupValidator, wordValidator } from './classes';
+import { MainWortPage, Error404, SavePage, Navbar, ThemePage } from './components';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { setState } from 'reduxReducers/mainReducer';
 import { useDispatch } from 'react-redux';
-import { initialWort } from 'constants';
 import Alert from './components/Alert';
+import { initialWord } from 'constants';
 import className from 'classnames';
 import axios from 'axios';
 import React from 'react';
@@ -17,21 +18,21 @@ function App() {
         dispatch(setState({ loading: true }));
 
         Promise.all(([
-            axios.get("/api/worttheme/"),
+            axios.get("/api/wordtheme/"),
             axios.get("/api/group/"),
             axios.get("/api/theme/"),
-            axios.get("/api/wort/"),
+            axios.get("/api/word/"),
         ]))
             .then(values => {
-                const [wortTheme, group, theme, wort] = values;
-                const currentWort = wort.data?.[0] || initialWort;
+                const [wordtheme, groups, theme, words] = values;
+                const wordsList = words.data.filter(w => wordValidator(w))
 
                 dispatch(setState({
-                    wortTheme: wortTheme.data,
-                    currentWort: currentWort,
-                    group: group.data,
-                    theme: theme.data,
-                    wort: wort.data,
+                    wortTheme: wordtheme.data.filter(wt => wordThemeValidator(wt)),
+                    theme: theme.data.filter(t => themeValidator(t)),
+                    group: groups.data.filter(g => groupValidator(g)),
+                    currentWort: wordsList?.[0] || initialWord,
+                    word: wordsList,
                     loading: false,
                 }));
             })
@@ -50,7 +51,7 @@ function App() {
 
                 <Routes>
                     <Route exact path="/" element={<MainWortPage />} />
-                    <Route path="/group" element={<GroupPage />} />
+                    {/* <Route path="/group" element={<GroupPage />} /> */}
                     <Route path="/theme" element={<ThemePage />} />
                     <Route path="/save" element={<SavePage />} />
                     <Route path="*" element={<Error404 />} />

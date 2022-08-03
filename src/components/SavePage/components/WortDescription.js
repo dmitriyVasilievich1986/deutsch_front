@@ -12,7 +12,7 @@ function WortDescription() {
     const wortTheme = useSelector(state => state.main.wortTheme);
     const loading = useSelector(state => state.main.loading);
     const group = useSelector(state => state.main.group);
-    const wort = useSelector(state => state.main.wort);
+    const word = useSelector(state => state.main.word);
     const dispatch = useDispatch();
 
     const [newDescription, setNewDescription] = React.useState("");
@@ -32,20 +32,20 @@ function WortDescription() {
         const newWort = {
             description: newDescription,
             translate: translate,
-            wort: deutschWort,
+            word: deutschWort,
             group: groupID,
         };
 
-        axios.patch(`/api/wort/${currentWort.id}/`, newWort)
+        axios.patch(`/api/word/${currentWort.id}/`, newWort)
             .then(data => {
                 const d = data.data;
-                const wl = wort.map(w => w.id == d.id ? d : w);
+                const wl = word.map(w => w.id == d.id ? d : w);
 
                 dispatch(setState({
                     message: { text: `Word is changed successfuly` },
                     currentWort: d,
                     loading: false,
-                    wort: wl,
+                    word: wl,
                 }));
             })
             .catch(e => {
@@ -63,7 +63,7 @@ function WortDescription() {
         const g = currentWort.group == 0 && group.length > 0 ? group[0].id : currentWort.group;
         setNewDescription(currentWort.description || "");
         setTranslate(currentWort.translate);
-        setDeutschWort(currentWort.wort);
+        setDeutschWort(currentWort.word);
         setGroupID(g);
     }
 
@@ -73,16 +73,16 @@ function WortDescription() {
         const currentID = currentWort.id;
         dispatch(setState({ loading: true }));
 
-        axios.delete(`/api/wort/${currentID}/`)
+        axios.delete(`/api/word/${currentID}/`)
             .then(_ => {
-                const newWort = wort.filter(w => w.id != currentID);
+                const newWort = word.filter(w => w.id != currentID);
 
                 dispatch(setState({
                     message: { text: `Word was deleted successfuly` },
-                    wortTheme: wortTheme.filter(wt => wt.wort != currentID),
+                    wortTheme: wortTheme.filter(wt => wt.word != currentID),
                     currentWort: newWort[0],
                     loading: false,
-                    wort: newWort,
+                    word: newWort,
                 }));
             })
             .catch(e => {
@@ -113,7 +113,7 @@ function WortDescription() {
                 <div className={className("description_field")}>
                     <div>Group:</div>
                     <Select
-                        value={group.find(g => g.id == currentWort.group)}
+                        value={group.find(g => g.name == currentWort.group)}
                         changeHandler={newGroup => setGroupID(newGroup.id)}
                         groupList={group}
                     />

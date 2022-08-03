@@ -11,7 +11,7 @@ function MainWortPage() {
     const selected = useSelector(state => state.main.selected);
     const group = useSelector(state => state.main.group);
     const theme = useSelector(state => state.main.theme);
-    const wort = useSelector(state => state.main.wort);
+    const word = useSelector(state => state.main.word);
     const dispatch = useDispatch();
 
     const [themeList, setThemeList] = React.useState([]);
@@ -32,7 +32,7 @@ function MainWortPage() {
         dispatch(setSelected({ selected: newGroup }));
     }
 
-    if (wort.length === 0) return <h1 className='wort_row'>List is empty</h1>
+    if (word.length === 0) return <h1 className='wort_row'>List is empty</h1>
     return (
         <div className='wort_page_wrapper'>
             <div className='group_container'>

@@ -6,14 +6,14 @@ import React from 'react';
 
 function WortList() {
     const currentWort = useSelector(state => state.main.currentWort);
-    const wort = useSelector(state => state.main.wort);
+    const word = useSelector(state => state.main.word);
     const dispatch = useDispatch();
 
     return (
         <div style={{ margin: "2rem", width: "80%" }}>
             <Select
-                value={{ name: `${currentWort.wort} / ${currentWort.translate}`, ...currentWort }}
-                groupList={wort.map(w => ({ name: `${w.wort} / ${w.translate}`, ...w }))}
+                value={{ name: `${currentWort.word} / ${currentWort.translate}`, ...currentWort }}
+                groupList={word.map(w => ({ name: `${w.word} / ${w.translate}`, ...w }))}
                 changeHandler={newWort => dispatch(setState({ currentWort: newWort }))}
             />
         </div>

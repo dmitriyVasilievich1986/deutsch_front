@@ -1,6 +1,6 @@
 import { setState, setMessage } from 'reduxReducers/mainReducer';
 import DeleteButton from '../DeleteButton';
-import { initialWort } from 'constants';
+import { initialWord } from 'constants';
 import { connect } from 'react-redux';
 import className from 'classnames';
 import React from 'react';
@@ -75,7 +75,7 @@ function InputManagement(props) {
             .then(_ => {
                 const newList = props[props.object].filter(g => g.id != props.id);
                 const newWort = props.object == "group" ? props.wort.filter(w => w.group != props.id) : props.wort;
-                const newCurrentWort = props.object == "group" ? newWort?.[0] || initialWort : props.currentWort;
+                const newCurrentWort = props.object == "group" ? newWort?.[0] || initialWord : props.currentWort;
 
                 props.setState({
                     message: { text: `'${props.object}' was deleted successfuly` },
