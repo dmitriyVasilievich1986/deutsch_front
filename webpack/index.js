@@ -1,16 +1,21 @@
-module.exports = {
-    output: require("./output"),
+module.exports = (env, argv) => {
+    const isDevelopment = argv.mode === "development"
+    return {
+        output: require("./output"),
 
-    entry: require("./entry"),
+        entry: require("./entry"),
 
-    ...require("./plugins"),
+        ...require("./plugins"),
 
-    resolve: {
-        extensions: ['.js', '.jsx'],
-        ...require("./aliases"),
-    },
+        resolve: {
+            extensions: ['.js', '.jsx'],
+            ...require("./aliases"),
+        },
 
-    module: {
-        ...require("./rules"),
-    },
+        devtool: isDevelopment ? 'eval-source-map' : "source-map",
+
+        module: {
+            ...require("./rules"),
+        },
+    }
 };
