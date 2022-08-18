@@ -15,8 +15,11 @@ function Option(props) {
   );
 }
 
-Option.PropTypes = {
-  value: PropTypes.string.isRequired,
+Option.propTypes = {
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
 };
 
 export default Option
