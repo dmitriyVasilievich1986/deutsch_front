@@ -21,14 +21,14 @@ function Select(props) {
       </Option>
     ));
 
-  const [value, setValue] = React.useState(props.value || "");
+  const [value, setValue] = React.useState("value" in props ? props.value : "");
   const [filter, setFilter] = React.useState("");
   const [show, setShow] = React.useState(false);
   const listRef = React.useRef(null)
 
   React.useEffect(_ => {
     getValueForFilter(value);
-    props?.changeHandler && props.changeHandler(value);
+    props?.onChange && props.onChange(value);
   }, [value])
 
   React.useEffect(_ => {
@@ -93,9 +93,12 @@ function Select(props) {
   );
 }
 
-Select.PropTypes = {
-  changeHandler: PropTypes.func,
-  value: PropTypes.string,
+Select.propTypes = {
+  onChange: PropTypes.func,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
 }
 
 export default Select
