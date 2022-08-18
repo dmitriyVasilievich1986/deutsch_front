@@ -1,9 +1,9 @@
 import { setSelected } from 'reduxReducers/mainReducer';
 import { useSelector, useDispatch } from 'react-redux';
+import { Select, Option } from '../components/select';
 import { initialSelected } from 'constants';
 import { Wort } from './components';
 import Themes from '../Themes';
-import Select from '../Select';
 import React from 'react';
 
 
@@ -12,6 +12,7 @@ function MainWortPage() {
     const group = useSelector(state => state.main.group);
     const theme = useSelector(state => state.main.theme);
     const word = useSelector(state => state.main.word);
+    const groupList = [initialSelected, ...group]
     const dispatch = useDispatch();
 
     const [themeList, setThemeList] = React.useState([]);
@@ -28,7 +29,8 @@ function MainWortPage() {
         }
     }
 
-    const changeHandler = newGroup => {
+    const changeHandler = groupID => {
+        const newGroup = groupList.find(g => g.id === groupID)
         dispatch(setSelected({ selected: newGroup }));
     }
 
@@ -40,11 +42,9 @@ function MainWortPage() {
                     <div style={{ marginRight: "5px" }}>
                         groups:
                     </div>
-                    <Select
-                        groupList={[initialSelected, ...group]}
-                        changeHandler={changeHandler}
-                        value={selected}
-                    />
+                    <Select value={selected.id} onChange={changeHandler}>
+                        {groupList.map(g => <Option key={g.id} value={g.id}>{g.name}</Option>)}
+                    </Select>
                 </div>
             </div>
             <div className='m_container'>
